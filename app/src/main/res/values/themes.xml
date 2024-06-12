@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.WinHey" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorControlNormal">@color/colorControlNormal</item>
+
+    </style>
+
+    <style name="OutlinedBoxStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!--  Customize other attributes as needed  -->
+        <item name="boxStrokeColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Theme.WinHey" parent="Base.Theme.WinHey" />
+
+    <!-- Custom BottomSheetDialogFragment theme -->
+    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <!-- Customize your bottom sheet dialog theme here -->
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+    </style>
+
+    <style name="CustomBottomSheet" parent="Widget.Design.BottomSheet.Modal">
+        <!-- Customize your bottom sheet widget here -->
+        <item name="android:background">@color/White</item>
+    </style>
+</resources>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress NavigationFile -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/authFragment">
+
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.example.winhey.ui.view.fragment.AdminFragment"
+        android:label="AdminFragment" >
+        <action
+            android:id="@+id/action_adminFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_transactionFragment"
+            app:destination="@id/transactionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerFragment"
+        android:name="com.example.winhey.ui.view.fragment.PlayerFragment"
+        android:label="fragment_player"
+        tools:layout="@layout/fragment_player" >
+        <action
+            android:id="@+id/action_playerFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/action_playerFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+        <action
+            android:id="@+id/action_playerFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_playerFragment_to_blockedFragment"
+            app:destination="@id/blockedFragment"
+            app:popUpTo="@id/playerFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.example.winhey.ui.view.fragment.AuthFragment"
+        android:label="AuthFragment" >
+        <action
+            android:id="@+id/action_authFragment_to_adminFragment"
+            app:destination="@id/adminFragment"
+            app:popUpTo="@id/authFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_authFragment_to_playerFragment"
+            app:destination="@id/playerFragment"
+            app:popUpTo="@id/authFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.winhey.ui.view.fragment.GameFragment"
+        android:label="GameFragment" >
+        <action
+            android:id="@+id/action_gameFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.winhey.ui.view.fragment.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_blockedFragment"
+            app:destination="@id/blockedFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_moneyFragment"
+            app:destination="@id/moneyFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_referralFragment"
+            app:destination="@id/referralFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/referralFragment"
+        android:name="com.example.winhey.ui.view.fragment.ReferralFragment"
+        android:label="ReferralFragment" >
+        <action
+            android:id="@+id/action_referralFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/transactionFragment"
+        android:name="com.example.winhey.ui.view.fragment.TransactionFragment"
+        android:label="TransactionFragment" >
+        <action
+            android:id="@+id/action_transactionFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/blockedFragment"
+        android:name="com.example.winhey.ui.view.fragment.BlockedFragment"
+        android:label="fragment_blocked"
+        tools:layout="@layout/fragment_blocked" >
+        <action
+            android:id="@+id/action_blockedFragment_to_playerFragment"
+            app:destination="@id/playerFragment"
+            app:popUpTo="@id/blockedFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/moneyFragment"
+        android:name="com.example.winhey.ui.view.fragment.MoneyFragmentPlayer"
+        android:label="MoneyFragment" >
+        <action
+            android:id="@+id/action_moneyFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
+        <action
+            android:id="@+id/action_moneyFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+</navigation>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="400sp"
+        android:background="@color/White"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:autofillHints="test"
+            android:textColor="@color/Black"
+            android:hint="@string/user_name"/>
+
+        <TextView
+            android:id="@+id/editTextuserEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="test@gmail.com"
+            android:layout_marginVertical="5dp"
+            android:textColor="@color/Black"
+            android:hint="@string/email_id"/>
+
+        <TextView
+            android:id="@+id/editTextTotalWon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:textColor="@color/Black"
+            android:hint="@string/total_won"/>
+
+        <TextView
+            android:id="@+id/editTextTotalLoss"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:textColor="@color/Black"
+            android:hint="@string/total_loss" />
+
+        <TextView
+            android:id="@+id/editTextGameCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/Black"
+            android:hint="@string/total_game_played"/>
+
+        <TextView
+            android:id="@+id/currentBalance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:textColor="@color/Black"
+            android:hint="@string/wallet_balance" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutWalletBalance"
+            style="@style/OutlinedBoxStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/add_updated_balance"
+            android:textColorHint="@color/Black"
+
+            app:hintTextColor="@color/Black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logo"
+            app:startIconDrawable="@drawable/ic_payment"
+            app:startIconTint="@color/Black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextWalletBalance"
+                android:textColor="@color/Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:paddingStart="58dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/baseColor"
+            android:textColor="@color/Black"
+            android:text="@string/update" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/deleteUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/baseColor"
+            android:textColor="@color/Black"
+            android:text="@string/delete" />
+    </LinearLayout>
+
+</layout>
+

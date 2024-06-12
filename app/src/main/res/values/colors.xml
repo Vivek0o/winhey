@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Define your existing colors -->
+    <color name="colorPrimary">#010003</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorControlNormal">#000000</color>
+    <color name="colorButtonTextColor">#F4F2F6</color>
+    <color name="colorWon">#FF197819</color>
+
+    <!-- Define color for night mode (optional) -->
+    <color name="colorPrimaryNight">#F4F2F6</color>
+    <color name="colorPrimaryDarkNight">#3700B3</color>
+    <color name="colorOnPrimaryNight">#000000</color>
+    <color name="colorControlNormalNight">#FFFFFF</color>
+    <color name="colorButtonTextColorNight">#010003</color>
+
+    <color name="White">#F4F2F6</color>
+    <color name="Black">#010003</color>
+    <color name="AppBarColor">#379F7C</color>
+    <color name="baseColor">#94d2bd</color>
+    <color name="baseColor80">#8094d2bd</color>
+    <color name="baseColor60">#6094d2bd</color>
+
+
+</resources>

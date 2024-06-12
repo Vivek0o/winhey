@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/playerFragment"
+        android:icon="@drawable/ic_home"
+        android:iconTint="@color/Black"
+        android:title="@string/home"/>
+
+    <item
+        android:id="@+id/referralFragment"
+        android:icon="@drawable/ic_referral"
+        android:iconTint="@color/Black"
+        android:title="@string/referral"
+        />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_profile"
+        android:iconTint="@color/Black"
+        android:title="@string/profile"/>
+</menu>

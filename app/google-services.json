@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "608654892621",
+    "project_id": "winhey-49847",
+    "storage_bucket": "winhey-49847.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608654892621:android:fd6b7541c1346348dc4604",
+        "android_client_info": {
+          "package_name": "com.example.winhey"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3UNf0TCE4NZlvx_w_IyuWlLex-ckfLkU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
