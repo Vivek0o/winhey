@@ -1,14 +1,17 @@
 package com.example.winhey.ui.view.fragment
 
 import android.app.AlertDialog
+import android.graphics.drawable.InsetDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -31,6 +34,7 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
     private val adminViewModel: AdminViewModel by activityViewModels()
     private var isBalanceUpdated = false
     private lateinit var playerViewModel: PlayerViewModel
+    private lateinit var flipFlopGameUtil: FlipFlopGameUtil
     private lateinit var backPressedCallback: OnBackPressedCallback
     private val bottomSheetFragment = MoneyBottomSheetFragment.newInstance()
 
@@ -58,6 +62,14 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
             backPressedCallback
         )
 
+        flipFlopGameUtil = FlipFlopGameUtil(
+            binding.cardView1,
+            binding.cardView2,
+            binding.imageView1,
+            binding.imageView2
+        )
+
+        flipFlopGameUtil.handleCardClick()
         handlePlayerData()
         handleMusic()
         handleButtonClick()
@@ -123,16 +135,16 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
     private fun openBottomSheet() {
         binding.playButton.setOnClickListener {
             if (binding.playButton.text == "Join") {
-                FlipFlopGameUtil().changeCardBackground(binding.imageView1, binding.imageView2)
+                flipFlopGameUtil.changeCardBackground()
                 bottomSheetFragment.show(childFragmentManager, "MoneyBottomSheetFragment")
             } else {
-                FlipFlopGameUtil().rotateCard(
-                    binding.cardView1,
-                    binding.cardView2,
-                    binding.imageView1,
-                    binding.imageView2
-                )
-                binding.playButton.text = "Join"
+                if (flipFlopGameUtil.selected) {
+                    flipFlopGameUtil.rotateCard()
+                    binding.playButton.text = "Join"
+                    flipFlopGameUtil.selected = false
+                } else {
+                    Toast.makeText(context, "Please select card", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -144,6 +156,7 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
     }
 
     override fun onSubmitValue(value: Int) {
+        isBalanceUpdated = false
         playerViewModel.currentPlayer.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {

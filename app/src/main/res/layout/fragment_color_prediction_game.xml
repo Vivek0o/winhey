@@ -56,18 +56,18 @@
         <LinearLayout
             android:id="@+id/cardView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="360dp"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.4">
+            app:layout_constraintVertical_bias="0.36">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView1"
                 android:layout_width="150dp"
-                android:layout_height="250dp"
+                android:layout_height="240dp"
                 android:layout_margin="16dp"
                 app:cardBackgroundColor="#00000000"
                 app:cardCornerRadius="8dp">
@@ -84,7 +84,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView2"
                 android:layout_width="150dp"
-                android:layout_height="250dp"
+                android:layout_height="240dp"
                 android:layout_margin="16dp"
                 app:cardBackgroundColor="#00000000"
                 app:cardCornerRadius="8dp">

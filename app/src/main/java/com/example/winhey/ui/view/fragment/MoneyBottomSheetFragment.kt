@@ -2,11 +2,13 @@ package com.example.winhey.ui.view.fragment
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.winhey.R
 import com.example.winhey.databinding.FragmentBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -72,7 +74,17 @@ class MoneyBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return BottomSheetDialog(requireContext(), R.style.CustomBottomSheetDialogTheme)
+        val dialog = super.onCreateDialog(savedInstanceState)
+
+        dialog.setOnShowListener { dialogInterface ->
+            val bottomSheetDialog = dialogInterface as BottomSheetDialog
+            val bottomSheet = bottomSheetDialog.findViewById<View>(R.id.bottom_sheet_container)
+            bottomSheet?.let {
+                val background = ContextCompat.getDrawable(requireContext(), R.drawable.bottom_sheet_background)
+                it.background = InsetDrawable(background, 0)
+            }
+        }
+        return dialog
     }
 
     companion object {
