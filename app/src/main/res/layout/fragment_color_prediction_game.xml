@@ -113,7 +113,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="A"
+                android:textColor="@color/Black"
+                android:text="@string/virat"
                 android:textSize="40sp" />
 
             <TextView
@@ -121,7 +122,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="B"
+                android:textColor="@color/Black"
+                android:text="@string/rohit"
                 android:textSize="40sp" />
 
         </LinearLayout>

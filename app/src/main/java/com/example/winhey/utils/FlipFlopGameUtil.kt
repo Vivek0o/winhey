@@ -40,8 +40,8 @@ class FlipFlopGameUtil(
             override fun onAnimationEnd(animation: Animator) {
                 cardView1.isClickable = false
                 cardView2.isClickable = false
-                imageView1.setBackgroundResource(R.drawable.background_dhoni)
-                imageView2.setBackgroundResource(R.drawable.background_kohli)
+                imageView1.setBackgroundResource(R.drawable.thala)
+                imageView2.setBackgroundResource(R.drawable.king_kohli)
             }
 
             override fun onAnimationCancel(animation: Animator) {
