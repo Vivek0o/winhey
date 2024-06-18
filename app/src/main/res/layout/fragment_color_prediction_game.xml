@@ -6,14 +6,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/baseColor60">
+        android:background="@drawable/background_color_predication_game">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/game_total_won"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:backgroundTint="@color/baseColor80"
+            android:backgroundTint="@color/AppBarColor"
             android:text="@string/_0_0"
             android:textColor="@color/Black"
             app:cornerRadius="5dp"
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:backgroundTint="@color/baseColor80"
+            android:backgroundTint="@color/AppBarColor"
             android:text="@string/_0_0"
             android:textColor="@color/Black"
             app:cornerRadius="5dp"
@@ -44,9 +44,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/flip_flop_solitarie"
-            android:textAppearance="@color/Black"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:textColor="@color/White"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/Black"
+                android:textColor="@color/White"
                 android:text="@string/virat"
                 android:textSize="40sp" />
 
@@ -122,8 +122,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="@color/Black"
-                android:text="@string/rohit"
+                android:textColor="@color/White"
+                android:text="@string/dhoni"
                 android:textSize="40sp" />
 
         </LinearLayout>
@@ -158,7 +158,7 @@
             android:id="@+id/playButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/baseColor"
+            android:backgroundTint="@color/AppBarColor"
             android:text="@string/join"
             android:textColor="@color/Black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -169,7 +169,7 @@
             android:id="@+id/back_btn"
             android:layout_width="60sp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/baseColor"
+            android:backgroundTint="@color/AppBarColor"
             app:icon="@drawable/ic_back_full_arrow"
             app:iconGravity="textStart"
             app:iconTint="@color/Black"
