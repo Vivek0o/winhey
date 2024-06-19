@@ -1,6 +1,6 @@
 package com.example.winhey.utils.algo
 
-import com.example.winhey.data.models.Game
+import com.example.winhey.data.models.GameState
 import com.example.winhey.data.models.ResultType
 import kotlin.random.Random
 
@@ -8,7 +8,7 @@ object DecisionMaker {
     var lossMargin: Double = 400.0
     var winThreshold: Int = 30
 
-    fun makeDecision(game: Game): Boolean {
+    fun makeDecision(game: GameState): Boolean {
         val gameAmount = game.amount
         val answer = generateBooleanWithProbability()
         if (answer) {

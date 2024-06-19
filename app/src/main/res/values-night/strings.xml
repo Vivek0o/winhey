@@ -59,4 +59,7 @@
     <string name="rohit">Rohit</string>
     <string name="virat">Virat</string>
     <string name="text">Text</string>
+    <string name="better_luck_next_time">Better Luck Next Time</string>
+    <string name="won">Hurray !! Won</string>
+    <string name="withdrawal_amount">Withdrawal Amount</string>
 </resources>

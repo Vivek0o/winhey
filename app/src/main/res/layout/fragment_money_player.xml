@@ -136,19 +136,20 @@
                 android:layout_marginEnd="20sp"
                 android:gravity="center"
                 android:text="@string/payment_string"
-                android:textColor="@color/Black"/>
+                android:textColor="@color/Black" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/qr_code"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_gravity="center"
-                    android:scaleType="fitCenter"
                     android:layout_marginTop="10sp"
                     android:background="@color/colorPrimaryNight"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ic_qr_code"
                     tools:visibility="visible" />
 
@@ -166,16 +167,16 @@
                     android:id="@+id/errorView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_gravity="center|bottom"
                     android:layout_marginBottom="100dp"
-                    android:text="@string/error_message"
-                    android:gravity="center"
-                    android:textSize="25sp"
                     android:fontFamily="serif"
+                    android:gravity="center"
+                    android:text="@string/error_message"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="25sp"
                     android:visibility="gone"
-                    android:textColor="@color/colorPrimary" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
             </FrameLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -184,10 +185,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10sp"
                 android:hint="@string/enter_the_transaction_id"
                 android:textColorHint="@color/Black"
                 app:hintTextColor="@color/Black"
-                android:layout_marginTop="10sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/logo"
                 app:startIconDrawable="@drawable/ic_email"
@@ -195,11 +196,11 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextTransactionID"
-                    android:textColor="@color/Black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:paddingStart="48dp" />
+                    android:paddingStart="48dp"
+                    android:textColor="@color/Black" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -209,22 +210,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="5dp"
                 android:hint="@string/deposited_amount"
                 android:textColorHint="@color/Black"
                 app:hintTextColor="@color/Black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/logo"
-                android:layout_marginBottom="5dp"
                 app:startIconDrawable="@drawable/ic_payment"
                 app:startIconTint="@color/Black">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextAmount"
-                    android:textColor="@color/Black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
-                    android:paddingStart="48dp" />
+                    android:paddingStart="48dp"
+                    android:textColor="@color/Black" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -234,18 +235,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/baseColor"
-                android:textColor="@color/Black"
-                android:text="@string/update_button" />
+                android:text="@string/update_button"
+                android:textColor="@color/Black" />
 
             <TextView
                 android:id="@+id/transactionUpdateText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="20sp"
-                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:text="@string/transaction_update"
                 android:textColor="@color/Black"
-                android:text="@string/transaction_update" />
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -265,8 +266,7 @@
                 android:id="@+id/containerWithdraw"
                 layout="@layout/fragment_withdraw_money"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                 />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

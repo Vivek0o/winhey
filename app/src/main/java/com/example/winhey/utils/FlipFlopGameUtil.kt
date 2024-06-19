@@ -3,16 +3,20 @@ package com.example.winhey.utils
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.graphics.Color
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
+import android.view.View
 import android.widget.ImageView
 import com.example.winhey.R
+import com.example.winhey.databinding.FragmentColorPredictionGameBinding
 import com.google.android.material.card.MaterialCardView
 
 class FlipFlopGameUtil(
     private val cardView1: MaterialCardView,
     private val cardView2: MaterialCardView,
     private val imageView1: ImageView,
-    private val imageView2: ImageView
+    private val imageView2: ImageView,
+    private val binding: FragmentColorPredictionGameBinding
 ) {
 
     private var selectedCard: MaterialCardView? = null
@@ -21,6 +25,9 @@ class FlipFlopGameUtil(
     // Store original states
     private val originalStateCard1 = Pair(cardView1.strokeColor, cardView1.strokeWidth)
     private val originalStateCard2 = Pair(cardView2.strokeColor, cardView2.strokeWidth)
+
+    // Store Clicked Item position
+    private var tempWon = true
 
 
     fun rotateCard() {
@@ -40,8 +47,22 @@ class FlipFlopGameUtil(
             override fun onAnimationEnd(animation: Animator) {
                 cardView1.isClickable = false
                 cardView2.isClickable = false
-                imageView1.setBackgroundResource(R.drawable.thala)
-                imageView2.setBackgroundResource(R.drawable.king_kohli)
+
+                if (tempWon) {
+                    imageView1.setBackgroundResource(R.drawable.king_kohli)
+                    imageView2.setBackgroundResource(R.drawable.thala)
+                    binding.resultWon.visibility = View.VISIBLE
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        binding.resultWon.visibility = View.GONE
+                    }, 3000)
+                } else {
+                    imageView1.setBackgroundResource(R.drawable.thala)
+                    imageView2.setBackgroundResource(R.drawable.king_kohli)
+                    binding.resultLost.visibility = View.VISIBLE
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        binding.resultLost.visibility = View.GONE
+                    }, 3000)
+                }
             }
 
             override fun onAnimationCancel(animation: Animator) {
@@ -92,17 +113,11 @@ class FlipFlopGameUtil(
                 cardView1.strokeColor = originalStateCard1.first
                 cardView1.strokeWidth = originalStateCard1.second
             }
+
             cardView2 -> {
                 cardView2.strokeColor = originalStateCard2.first
                 cardView2.strokeWidth = originalStateCard2.second
             }
         }
-    }
-
-    fun resetCardViews() {
-        // Reset all card views to their original state
-        resetCardViews(cardView1)
-        resetCardViews(cardView2)
-        selectedCard = null
     }
 }

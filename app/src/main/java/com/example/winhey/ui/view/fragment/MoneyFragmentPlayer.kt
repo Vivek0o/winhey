@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -57,28 +56,37 @@ class MoneyFragmentPlayer : Fragment() {
         }
 
         mainViewModel.common.observe(viewLifecycleOwner) {
-           when (it) {
-               is Resource.Success -> {
-                   val uri = Uri.parse(it.data.qRImage)
-                   Glide.with(this)
-                       .load(uri)
-                       .into(binding.qrCode)
-               }
+            when (it) {
+                is Resource.Success -> {
+                    val uri = Uri.parse(it.data.qRImage)
+                    Glide.with(this)
+                        .load(uri)
+                        .into(binding.qrCode)
+                }
 
-               is Resource.Loading -> {
-                   showToast("Loading... ")
-               }
+                is Resource.Loading -> {
+                    showToast("Loading... ")
+                }
 
-               is Resource.Failure -> {
-                   showToast("Could not load qr code: ${it.message}")
-               }
-           }
+                is Resource.Failure -> {
+                    showToast("Could not load qr code: ${it.message}")
+                }
+            }
         }
 
         playerViewModel.currentPlayer.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
                     currentPlayer = it.data
+                    "Current Balance: ${it.data.accountBalance}".also {
+                        binding.userCurrentBalance.text = it
+                    }
+                    "Winning Amount: ${it.data.totalWon}".also {
+                        binding.userWinningAmount.text = it
+                    }
+                    "Withdrawal Amount: ${(it.data.accountBalance) + getWithdrawalAmount(it.data.totalWon)}".also {
+                        binding.containerWithdraw.withdrawalAmount.text = it
+                    }
                 }
 
                 is Resource.Loading -> {
@@ -97,6 +105,11 @@ class MoneyFragmentPlayer : Fragment() {
         handleButtonClick()
         return binding.root
 
+    }
+
+    private fun getWithdrawalAmount(totalWon: Double): Double {
+        var wonAmount = totalWon.toInt()
+        return wonAmount * 0.20;
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
