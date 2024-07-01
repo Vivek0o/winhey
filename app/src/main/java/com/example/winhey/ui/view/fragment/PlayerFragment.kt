@@ -1,6 +1,9 @@
 package com.example.winhey.ui.view.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +18,17 @@ import com.example.winhey.data.models.Resource
 import com.example.winhey.databinding.FragmentPlayerBinding
 import com.example.winhey.ui.PlayerViewModelFactory
 import com.example.winhey.ui.viewmodel.AuthViewModel
+import com.example.winhey.ui.viewmodel.MainViewModel
 import com.example.winhey.ui.viewmodel.PlayerViewModel
+import com.example.winhey.utils.PreferencesUtil
 
 class PlayerFragment : Fragment() {
 
     private lateinit var binding: FragmentPlayerBinding
     private lateinit var playerViewModel: PlayerViewModel
     private val authViewModel: AuthViewModel by viewModels({ requireActivity() })
+    private val mainViewModel: MainViewModel by viewModels({ requireActivity() })
+    private lateinit var googleDriveApkUrl: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -30,6 +37,25 @@ class PlayerFragment : Fragment() {
         authViewModel.currentUser.value?.uid?.let {
             val factory = PlayerViewModelFactory(requireActivity().application, it)
             playerViewModel = ViewModelProvider(this, factory)[PlayerViewModel::class.java]
+        }
+
+        mainViewModel.common.observe(viewLifecycleOwner) {
+            when(it) {
+                is Resource.Success -> {
+                    Log.d("####", "onCreateView1: " + it.data.currentAppVersion)
+                    Log.d("####", "onCreateView2: " + PreferencesUtil.getAppVersion(requireContext()))
+                    if (it.data.currentAppVersion != PreferencesUtil.getAppVersion(requireContext())) {
+                        googleDriveApkUrl = it.data.apkUrl
+                        binding.appUpdate.visibility = View.VISIBLE
+                    } else {
+                        binding.appUpdate.visibility = View.GONE
+                    }
+                } else -> {}
+            }
+        }
+        binding.appUpdateBtn.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(googleDriveApkUrl))
+            startActivity(browserIntent)
         }
 
         playerViewModel.currentPlayer.observe(viewLifecycleOwner) {

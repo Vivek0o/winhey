@@ -1,9 +1,11 @@
 package com.example.winhey.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.winhey.data.models.GameState
+import com.example.winhey.data.models.Player
 import com.example.winhey.data.models.ResultType
 
 class GameViewModel : ViewModel() {
@@ -14,36 +16,16 @@ class GameViewModel : ViewModel() {
 
     val gameState: LiveData<GameState> get() = _gameState
 
-    fun joinGame(playerName: String, amount: Double) {
+    fun joinGame(player: Player, amount: Double) {
         _gameState.value = _gameState.value?.copy(
-            player = playerName,
+            player = player,
             isPlaying = true,
-            statusMessage = "$playerName has joined the game!",
-            amount = amount
+            amount = amount,
+            gameCount = _gameState.value!!.gameCount + 1
         )
     }
 
-    fun playGame() {
-        _gameState.value = _gameState.value?.let { currentState ->
-            currentState.copy(
-                statusMessage = "${currentState.player} scored points!",
-                amount = currentState.amount
-            )
-        }
-    }
-
-    fun completeGame(result: ResultType) {
-        _gameState.value = _gameState.value?.copy(
-            isPlaying = false,
-            statusMessage = "${_gameState.value?.player} has ended the game with ${_gameState.value?.player} points!",
-            result = result
-        )
-    }
-
-    fun endGame() {
-        _gameState.value = _gameState.value?.copy(
-            isPlaying = false,
-            statusMessage = "${_gameState.value?.player} has ended the game with ${_gameState.value?.player} points!"
-        )
+    fun completeGame() {
+        _gameState.value = GameState()
     }
 }

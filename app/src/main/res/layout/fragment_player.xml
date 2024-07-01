@@ -25,13 +25,38 @@
                 app:titleTextColor="@color/Black" />
         </com.google.android.material.appbar.AppBarLayout>
 
+        <LinearLayout
+            android:id="@+id/appUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topbar"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="0.7"
+                android:layout_height="wrap_content"
+                android:text="@string/app_update_message"
+                android:textSize="15sp"
+                android:textColor="@color/Black"/>
+            <Button
+                android:id="@+id/appUpdateBtn"
+                android:layout_width="0dp"
+                android:layout_weight="0.3"
+                android:layout_height="wrap_content"
+                android:text="Update App"/>
+
+        </LinearLayout>
+
         <com.google.android.material.card.MaterialCardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/colorPredictionCard"
             android:layout_width="match_parent"
             android:layout_height="80sp"
             android:layout_margin="10dp"
-            app:layout_constraintTop_toBottomOf="@id/topbar"
+            app:layout_constraintTop_toBottomOf="@id/appUpdate"
             card_view:cardCornerRadius="4dp"
             card_view:cardElevation="20dp">
         </com.google.android.material.card.MaterialCardView>

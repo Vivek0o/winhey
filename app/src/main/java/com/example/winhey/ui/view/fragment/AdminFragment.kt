@@ -2,13 +2,14 @@ package com.example.winhey.ui.view.fragment
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,11 +23,13 @@ import com.example.winhey.data.models.Player
 import com.example.winhey.data.models.Resource
 import com.example.winhey.data.models.Status
 import com.example.winhey.data.models.UserType
+import com.example.winhey.data.remote.firebase.FirebaseHelper
 import com.example.winhey.databinding.FragmentAdminBinding
 import com.example.winhey.ui.adapter.UserDetailAdapter
 import com.example.winhey.ui.viewmodel.AdminViewModel
 import com.example.winhey.ui.viewmodel.AuthViewModel
 import com.example.winhey.ui.viewmodel.MainViewModel
+import com.example.winhey.utils.PreferencesUtil
 import com.example.winhey.utils.WinHeyUtil
 
 class AdminFragment : Fragment() {
@@ -38,6 +41,7 @@ class AdminFragment : Fragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var adminName: String
     private lateinit var adminEmail: String
+    private lateinit var googleDriveApkUrl: String
     val TAG = AdminFragment::class.java.name
     val PICK_IMAGE_REQUEST = 101
 
@@ -155,6 +159,23 @@ class AdminFragment : Fragment() {
             }
         }
 
+        mainViewModel.common.observe(viewLifecycleOwner) {
+            when(it) {
+                is Resource.Success -> {
+                    if (it.data.currentAppVersion != PreferencesUtil.getAppVersion(requireContext())) {
+                        googleDriveApkUrl = it.data.apkUrl
+                        binding.appUpdate.visibility = View.VISIBLE
+                    } else {
+                        binding.appUpdate.visibility = View.GONE
+                    }
+                } else -> {}
+            }
+        }
+        binding.appUpdateBtn.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(googleDriveApkUrl))
+            startActivity(browserIntent)
+        }
+
         binding.btnUserDetails.setOnClickListener {
             binding.containerCreateNewUser.newUserForm.visibility = View.GONE
             binding.adminControlledUserDetails.visibility = View.VISIBLE
@@ -249,7 +270,18 @@ class AdminFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
-            mainViewModel.updateCommonData(Common(adminName, adminEmail, data.data.toString()))
+            FirebaseHelper.uploadImageToFirebase(data.data!!, object : FirebaseHelper.FirebaseCallback<String> {
+                override fun onSuccess(result: String) {
+                    mainViewModel.updateCommonData(Common(adminName, adminEmail, result))
+                    Toast.makeText(context, "QR code updated successfully: $result", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onFailure(error: String) {
+                    Toast.makeText(context, "QR code inundation failed: $error", Toast.LENGTH_SHORT).show()
+                }
+
+
+            })
         }
     }
 

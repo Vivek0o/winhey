@@ -40,4 +40,25 @@ class PlayerViewModel(
             }
         )
     }
+
+    fun updateCurrentPLayer(player: Player) {
+        checkInternetAndPerformAction(
+            action = {
+                FirebaseHelper.updatePlayer(player, object : FirebaseHelper.FirebaseCallback<Boolean> {
+                    override fun onSuccess(result: Boolean) {
+                        _currentPlayer.value = Resource.Success(player)
+                    }
+
+                    override fun onFailure(error: String) {
+                        _currentPlayer.value = Resource.Failure(message = error, data = player)
+                        Toast.makeText(getApplication(), "Could not update Player data try again: $error", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            },
+            failureAction = {
+                _currentPlayer.value = Resource.Failure(message = Constants.NO_INTERNET_ERROR, data = player)
+                Toast.makeText(getApplication(), "Could not update Player data try again", Toast.LENGTH_SHORT).show()
+            }
+        )
+    }
 }

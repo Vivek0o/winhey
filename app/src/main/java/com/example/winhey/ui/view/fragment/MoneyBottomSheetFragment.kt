@@ -19,7 +19,7 @@ class MoneyBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentBottomSheetBinding
 
     interface MoneyBottomSheetListener {
-        fun onSubmitValue(value: Int)
+        fun onSubmitValue(value: Double)
     }
 
     private var listener: MoneyBottomSheetListener? = null
@@ -58,7 +58,7 @@ class MoneyBottomSheetFragment : BottomSheetDialogFragment() {
         binding.plus100.setOnClickListener(cardClickListener)
 
         binding.amountSubmit.setOnClickListener {
-            val inputValue = binding.editTextAmountMore.text.toString().toInt()
+            val inputValue = binding.editTextAmountMore.text.toString().toDouble()
             if (inputValue != null && listener != null) {
                 listener?.onSubmitValue(inputValue)
             } else {

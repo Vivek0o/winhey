@@ -1,6 +1,8 @@
 package com.example.winhey.data.remote.firebase
 
+import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import com.example.winhey.data.models.Common
 import com.example.winhey.data.models.Player
 import com.example.winhey.data.models.Transaction
@@ -10,6 +12,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import java.util.UUID
 
 object FirebaseHelper {
     val auth = FirebaseAuth.getInstance()
@@ -17,6 +21,7 @@ object FirebaseHelper {
     private val playersRef = database.getReference("players")
     private val transactionsRef = database.getReference("transactions")
     private val commonRef = database.getReference("common")
+    private val storageReference = FirebaseStorage.getInstance().reference
 
     interface FirebaseCallback<T> {
         fun onSuccess(result: T)
@@ -238,6 +243,25 @@ object FirebaseHelper {
                 }
         } catch (e: Exception) {
             callback.onFailure(e.message ?: "Unknown error")
+        }
+    }
+
+    fun uploadImageToFirebase(imageUri: Uri, callback: FirebaseCallback<String>) {
+        try {
+            val fileReference = storageReference.child("uploads/" + UUID.randomUUID().toString())
+            fileReference.putFile(imageUri)
+                .addOnSuccessListener {
+                    fileReference.downloadUrl.addOnSuccessListener { uri ->
+                        // Get the download URL for the uploaded image
+                        val downloadUrl = uri.toString()
+                        callback.onSuccess(downloadUrl)
+                    }
+                }
+                .addOnFailureListener { e ->
+                    callback.onFailure(e.message ?: "Unknown Error")
+                }
+        } catch (e: Exception) {
+            callback.onFailure(e.message ?: "Unknown Error")
         }
     }
 

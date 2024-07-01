@@ -8,5 +8,7 @@ data class Player(
     var totalLost: Double = 0.0,
     var totalWon: Double = 0.0,
     var gameCount: Int = 0,
+    var lossMargin: Double = 400.0,
+    var winThreshold: Int = 30,
     var isBlocked: Boolean = false
 )

@@ -3,6 +3,7 @@ package com.example.winhey.ui.view.fragment
 import android.app.AlertDialog
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import com.example.winhey.databinding.FragmentColorPredictionGameBinding
 import com.example.winhey.ui.PlayerViewModelFactory
 import com.example.winhey.ui.viewmodel.AdminViewModel
 import com.example.winhey.ui.viewmodel.AuthViewModel
+import com.example.winhey.ui.viewmodel.GameViewModel
 import com.example.winhey.ui.viewmodel.PlayerViewModel
 import com.example.winhey.utils.FlipFlopGameUtil
 import java.io.IOException
@@ -29,10 +31,12 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
     private var mediaPlayer: MediaPlayer? = null
     private val authViewModel: AuthViewModel by activityViewModels()
     private val adminViewModel: AdminViewModel by activityViewModels()
+    private val gameViewModel: GameViewModel by activityViewModels()
     private var isBalanceUpdated = false
     private lateinit var playerViewModel: PlayerViewModel
     private lateinit var flipFlopGameUtil: FlipFlopGameUtil
     private lateinit var backPressedCallback: OnBackPressedCallback
+    private var gameAmount: Double = 0.0
     private val bottomSheetFragment = MoneyBottomSheetFragment.newInstance()
 
 
@@ -64,12 +68,11 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
             binding.cardView2,
             binding.imageView1,
             binding.imageView2,
-            binding
-        )
+            binding)
 
         flipFlopGameUtil.handleCardClick()
         handlePlayerData()
-        handleMusic()
+        handleMusic("game_entry_audio.mp3")
         handleButtonClick()
         openBottomSheet()
         return binding.root
@@ -106,10 +109,10 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
         }
     }
 
-    private fun handleMusic() {
+    private fun handleMusic(audio: String) {
         try {
             mediaPlayer = MediaPlayer()
-            val assetFileDescriptor = context?.assets?.openFd("game_entry_audio.mp3")
+            val assetFileDescriptor = context?.assets?.openFd(audio)
             mediaPlayer?.setDataSource(
                 assetFileDescriptor?.fileDescriptor,
                 assetFileDescriptor?.startOffset ?: 0,
@@ -137,9 +140,14 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
                 bottomSheetFragment.show(childFragmentManager, "MoneyBottomSheetFragment")
             } else {
                 if (flipFlopGameUtil.selected) {
-                    flipFlopGameUtil.rotateCard()
-                    binding.playButton.text = "Join"
-                    flipFlopGameUtil.selected = false
+                    gameViewModel.gameState.value.let {
+                        if (gameAmount != 0.0) {
+                            handleMusic("game_playing_audio.mp3")
+                            flipFlopGameUtil.rotateCard(gameViewModel, playerViewModel)
+                            binding.playButton.text = "Join"
+                            flipFlopGameUtil.selected = false
+                        }
+                    }
                 } else {
                     Toast.makeText(context, "Please select card", Toast.LENGTH_SHORT).show()
                 }
@@ -153,7 +161,7 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
         mediaPlayer = null
     }
 
-    override fun onSubmitValue(value: Int) {
+    override fun onSubmitValue(value: Double) {
         isBalanceUpdated = false
         playerViewModel.currentPlayer.observe(viewLifecycleOwner) {
             when (it) {
@@ -190,21 +198,31 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
         isBalanceUpdated = false
     }
 
-    private fun updateBalance(player: Player, value: Int) {
-        val newBalance = player.accountBalance - value
-        player.accountBalance = newBalance
-
+    private fun updateBalance(player: Player, value: Double) {
         // Update player data in ViewModel
-        adminViewModel.updatePlayer(
+        playerViewModel.updateCurrentPLayer(
             Player(
                 id = player.id,
                 name = player.name,
                 email = player.email,
-                accountBalance = player.accountBalance,
+                accountBalance = player.accountBalance - value,
                 totalLost = player.totalLost,
                 totalWon = player.totalWon,
-                gameCount = (player.gameCount)++
+                gameCount = player.gameCount + 1
             )
         )
+
+        playerViewModel.currentPlayer.observe(this) {
+            when(it) {
+                is Resource.Success -> {
+                    gameViewModel.joinGame(it.data, value)
+                }
+                is Resource.Failure -> {
+                }
+                else -> {
+
+                }
+            }
+        }
     }
 }

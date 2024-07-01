@@ -8,7 +8,13 @@ import android.os.Looper
 import android.view.View
 import android.widget.ImageView
 import com.example.winhey.R
+import com.example.winhey.data.models.GameState
+import com.example.winhey.data.models.Player
+import com.example.winhey.data.models.ResultType
 import com.example.winhey.databinding.FragmentColorPredictionGameBinding
+import com.example.winhey.ui.viewmodel.GameViewModel
+import com.example.winhey.ui.viewmodel.PlayerViewModel
+import com.example.winhey.utils.algo.DecisionMaker
 import com.google.android.material.card.MaterialCardView
 
 class FlipFlopGameUtil(
@@ -26,11 +32,8 @@ class FlipFlopGameUtil(
     private val originalStateCard1 = Pair(cardView1.strokeColor, cardView1.strokeWidth)
     private val originalStateCard2 = Pair(cardView2.strokeColor, cardView2.strokeWidth)
 
-    // Store Clicked Item position
-    private var tempWon = true
 
-
-    fun rotateCard() {
+    fun rotateCard(gameViewModel: GameViewModel, playerViewModel: PlayerViewModel) {
         val animator1 = ObjectAnimator.ofFloat(cardView1, "rotationY", 0f, 360f)
         val animator2 = ObjectAnimator.ofFloat(cardView2, "rotationY", 0f, 360f)
         animator1.duration = 1000
@@ -48,13 +51,19 @@ class FlipFlopGameUtil(
                 cardView1.isClickable = false
                 cardView2.isClickable = false
 
-                if (tempWon) {
+                val decision = gameViewModel.gameState.value?.let { DecisionMaker.makeDecision(it) } ?: return
+                val gameState = gameViewModel.gameState.value ?: return
+
+                if (decision) {
                     imageView1.setBackgroundResource(R.drawable.king_kohli)
                     imageView2.setBackgroundResource(R.drawable.thala)
                     binding.resultWon.visibility = View.VISIBLE
                     Handler(Looper.getMainLooper()).postDelayed({
                         binding.resultWon.visibility = View.GONE
                     }, 3000)
+                    gameViewModel.completeGame()
+                    updatePlayer(gameState, ResultType.WON)
+
                 } else {
                     imageView1.setBackgroundResource(R.drawable.thala)
                     imageView2.setBackgroundResource(R.drawable.king_kohli)
@@ -62,7 +71,29 @@ class FlipFlopGameUtil(
                     Handler(Looper.getMainLooper()).postDelayed({
                         binding.resultLost.visibility = View.GONE
                     }, 3000)
+                    gameViewModel.completeGame()
+                    updatePlayer(gameState, ResultType.LOSS)
                 }
+            }
+
+            private fun updatePlayer(gameState: GameState, type: ResultType) {
+                if (type == ResultType.WON) {
+                    gameState.player?.let { playerViewModel.updateCurrentPLayer(it.copy(
+                        accountBalance = it.accountBalance + gameState.amount,
+                        totalWon = it.totalWon + gameState.amount,
+                        gameCount = it.gameCount + 1,
+                        lossMargin = DecisionMaker.lossMargin,
+                        winThreshold = DecisionMaker.winThreshold
+                    )) }
+                } else {
+                    gameState.player?.let { playerViewModel.updateCurrentPLayer(it.copy(
+                        totalLost = it.totalLost + gameState.amount,
+                        gameCount = it.gameCount + 1,
+                        lossMargin = DecisionMaker.lossMargin,
+                        winThreshold = DecisionMaker.winThreshold
+                    )) }
+                }
+
             }
 
             override fun onAnimationCancel(animation: Animator) {
