@@ -42,8 +42,6 @@ class PlayerFragment : Fragment() {
         mainViewModel.common.observe(viewLifecycleOwner) {
             when(it) {
                 is Resource.Success -> {
-                    Log.d("####", "onCreateView1: " + it.data.currentAppVersion)
-                    Log.d("####", "onCreateView2: " + PreferencesUtil.getAppVersion(requireContext()))
                     if (it.data.currentAppVersion != PreferencesUtil.getAppVersion(requireContext())) {
                         googleDriveApkUrl = it.data.apkUrl
                         binding.appUpdate.visibility = View.VISIBLE

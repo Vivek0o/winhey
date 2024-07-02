@@ -167,6 +167,7 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
             when (it) {
                 is Resource.Success -> {
                     if (!isBalanceUpdated && value <= it.data.accountBalance) {
+                        gameAmount = value
                         // Update balance once
                         updateBalance(it.data, value)
                         childFragmentManager.findFragmentByTag("MoneyBottomSheetFragment")

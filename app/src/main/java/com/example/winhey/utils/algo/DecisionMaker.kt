@@ -6,7 +6,7 @@ import kotlin.random.Random
 
 object DecisionMaker {
     var lossMargin: Double = 400.0
-    var winThreshold: Int = 30
+    var winThreshold: Int = 50
 
     fun makeDecision(game: GameState): Boolean {
         val gameAmount = game.amount

@@ -49,36 +49,30 @@ class TransactionDetailAdapter(
         "Upi address: ${item?.upiID}".also { holder.upiAddress.text = it }
         holder.date.text = item?.dateTime
 
-        if (item?.isVerified == true) {
-            holder.transactionCheck.apply {
-                isChecked = true
-                isClickable = false
-                isActivated = false
-                visibility = View.GONE
-            }
-        } else {
-            holder.transactionCheck.apply {
-                isChecked = false
-                isClickable = true
-                isActivated = true
-            }
-        }
+        holder.transactionCheck.apply {
+            isChecked = item?.isVerified == true
+            isClickable = item?.isVerified != true
+            isActivated = item?.isVerified != true
+            visibility = if (item?.isVerified == true) View.GONE else View.VISIBLE
 
-        holder.transactionCheck.setOnClickListener {
-            if (item?.isVerified == false) {
-                playerMoneyViewModel.updateTransactionEntry(
-                    Transaction(
-                        userID = item.userID,
-                        name = item.name,
-                        amount = item.amount,
-                        email = item.email,
-                        transactionID = item.transactionID,
-                        upiID = item.upiID,
-                        transactionType = item.transactionType,
-                        dateTime = item.dateTime,
-                        isVerified = true
+            setOnClickListener {
+                if (item != null && item.isVerified == false) {
+                    playerMoneyViewModel.updateTransactionEntry(
+                        Transaction(
+                            userID = item.userID,
+                            name = item.name,
+                            amount = item.amount,
+                            email = item.email,
+                            transactionID = item.transactionID,
+                            upiID = item.upiID,
+                            transactionType = item.transactionType,
+                            dateTime = item.dateTime,
+                            isVerified = true
+                        )
                     )
-                )
+                    item.isVerified = true // Update the item state
+                    notifyItemChanged(position) // Notify that the item has changed to refresh the view
+                }
             }
         }
     }
