@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.winhey.R
 import com.example.winhey.data.models.Constants
@@ -51,9 +53,10 @@ class AuthFragment : Fragment() {
                 is Resource.Success -> {
                     resource.data.let {
                         when {
-                            it.isLoggedIn && it.userType == UserType.ADMIN ->
+                            it.isLoggedIn && it.userType == UserType.ADMIN -> {
                                 findNavController().navigate(R.id.action_authFragment_to_adminFragment)
 
+                            }
                             it.isLoggedIn && it.userType == UserType.PLAYER -> {
                                 findNavController().navigate(R.id.action_authFragment_to_playerFragment)
                             }
@@ -80,6 +83,22 @@ class AuthFragment : Fragment() {
             }
         }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        var warningToast = true
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (warningToast) {
+                    Toast.makeText(context, "Click again to close application", Toast.LENGTH_SHORT).show()
+                    warningToast = false
+                } else {
+                    requireActivity().finish()
+                }
+            }
+        })
     }
 
     private fun handleVisibility(status: Status, err: String = "") {

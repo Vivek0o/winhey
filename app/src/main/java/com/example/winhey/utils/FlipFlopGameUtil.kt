@@ -2,30 +2,35 @@ package com.example.winhey.utils
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.ImageView
 import com.example.winhey.R
 import com.example.winhey.data.models.GameState
-import com.example.winhey.data.models.Player
 import com.example.winhey.data.models.ResultType
 import com.example.winhey.databinding.FragmentColorPredictionGameBinding
 import com.example.winhey.ui.viewmodel.GameViewModel
 import com.example.winhey.ui.viewmodel.PlayerViewModel
 import com.example.winhey.utils.algo.DecisionMaker
 import com.google.android.material.card.MaterialCardView
+import java.io.IOException
 
 class FlipFlopGameUtil(
     private val cardView1: MaterialCardView,
     private val cardView2: MaterialCardView,
     private val imageView1: ImageView,
     private val imageView2: ImageView,
+    private val context: Context,
+    private val view: View?,
     private val binding: FragmentColorPredictionGameBinding
 ) {
 
     private var selectedCard: MaterialCardView? = null
+    private var mediaPlayer: MediaPlayer? = null
     var selected: Boolean = false
 
     // Store original states
@@ -57,6 +62,7 @@ class FlipFlopGameUtil(
                 if (decision) {
                     imageView1.setBackgroundResource(R.drawable.king_kohli)
                     imageView2.setBackgroundResource(R.drawable.thala)
+                    handleMusic("game_won_audio.mp3")
                     binding.resultWon.visibility = View.VISIBLE
                     Handler(Looper.getMainLooper()).postDelayed({
                         binding.resultWon.visibility = View.GONE
@@ -67,6 +73,7 @@ class FlipFlopGameUtil(
                 } else {
                     imageView1.setBackgroundResource(R.drawable.thala)
                     imageView2.setBackgroundResource(R.drawable.king_kohli)
+                    handleMusic("game_fail_audio.mp3")
                     binding.resultLost.visibility = View.VISIBLE
                     Handler(Looper.getMainLooper()).postDelayed({
                         binding.resultLost.visibility = View.GONE
@@ -149,6 +156,30 @@ class FlipFlopGameUtil(
                 cardView2.strokeColor = originalStateCard2.first
                 cardView2.strokeWidth = originalStateCard2.second
             }
+        }
+    }
+
+    private fun handleMusic(audio: String) {
+        try {
+            mediaPlayer = MediaPlayer()
+            val assetFileDescriptor = context?.assets?.openFd(audio)
+            mediaPlayer?.setDataSource(
+                assetFileDescriptor?.fileDescriptor,
+                assetFileDescriptor?.startOffset ?: 0,
+                assetFileDescriptor?.length ?: 0
+            )
+
+            mediaPlayer?.prepare()
+            mediaPlayer?.start()
+            mediaPlayer?.let {
+                view?.postDelayed({
+                    it.stop()
+                    it.release()
+                    mediaPlayer = null
+                }, 4000)
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
     }
 }

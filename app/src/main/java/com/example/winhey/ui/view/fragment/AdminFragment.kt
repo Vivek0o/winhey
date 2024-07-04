@@ -66,10 +66,7 @@ class AdminFragment : Fragment() {
                 when (it) {
                     is Resource.Success -> {
                         if (!it.data.isLoggedIn && it.data.userType == UserType.NONE) {
-                            val navOptions = NavOptions.Builder()
-                                .setPopUpTo(findNavController().currentDestination!!.id, true)
-                                .build()
-                            findNavController().navigate(R.id.action_adminFragment_to_authFragment, null, navOptions)
+                            findNavController().navigate(R.id.action_adminFragment_to_authFragment)
                         }
                     }
 

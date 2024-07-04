@@ -3,7 +3,6 @@ package com.example.winhey.ui.view.fragment
 import android.app.AlertDialog
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -68,6 +67,8 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
             binding.cardView2,
             binding.imageView1,
             binding.imageView2,
+            requireContext(),
+            view,
             binding)
 
         flipFlopGameUtil.handleCardClick()
@@ -180,7 +181,9 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
                         isBalanceUpdated = true
                     } else {
                         // Show an error
-                        Toast.makeText(context, "Insufficient balance", Toast.LENGTH_SHORT).show()
+                        if (value >= it.data.accountBalance) {
+                            Toast.makeText(context, "Insufficient balance", Toast.LENGTH_SHORT).show()
+                        }
                         childFragmentManager.findFragmentByTag("MoneyBottomSheetFragment")
                             ?.let { fragment ->
                                 (fragment as MoneyBottomSheetFragment).dismiss()
