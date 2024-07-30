@@ -84,9 +84,6 @@ class MoneyFragmentPlayer : Fragment() {
                     "Winning Amount: ${it.data.totalWon}".also {
                         binding.userWinningAmount.text = it
                     }
-                    "Withdrawal Amount: ${(it.data.accountBalance) + getWithdrawalAmount(it.data.totalWon)}".also {
-                        binding.containerWithdraw.withdrawalAmount.text = it
-                    }
                 }
 
                 is Resource.Loading -> {

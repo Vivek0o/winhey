@@ -1,5 +1,6 @@
 package com.example.winhey.utils.algo
 
+import android.util.Log
 import com.example.winhey.data.models.GameState
 import com.example.winhey.data.models.ResultType
 import kotlin.random.Random
@@ -7,10 +8,19 @@ import kotlin.random.Random
 object DecisionMaker {
     var lossMargin: Double = 400.0
     var winThreshold: Int = 50
+    private var gamesCount: Int = 0
 
     fun makeDecision(game: GameState): Boolean {
         val gameAmount = game.amount
-        val answer = generateBooleanWithProbability()
+        this.winThreshold = game.player?.winThreshold!!
+        this.lossMargin = game.player.lossMargin
+        this.gamesCount = game.player.gameCount
+        val answer = if (gamesCount <= 5 && gameAmount < 1000) {
+            generateBooleanWithProbability(90)
+        } else {
+            generateBooleanWithProbability(winThreshold)
+        }
+
         if (answer) {
             updateLossMargin(gameAmount, ResultType.WON)
         } else {
@@ -41,9 +51,9 @@ object DecisionMaker {
         }
     }
 
-    private fun generateBooleanWithProbability(): Boolean {
+    private fun generateBooleanWithProbability(threshold: Int = winThreshold): Boolean {
         val randomNumber = Random.nextInt(100)
-        return randomNumber < winThreshold
+        return randomNumber < threshold
     }
 
     private fun updateLossMargin(amount: Double, type: ResultType) {

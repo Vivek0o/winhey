@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.example.winhey.R
@@ -56,7 +57,9 @@ class FlipFlopGameUtil(
                 cardView1.isClickable = false
                 cardView2.isClickable = false
 
-                val decision = gameViewModel.gameState.value?.let { DecisionMaker.makeDecision(it) } ?: return
+                val decision = gameViewModel.gameState.value?.let {
+                    DecisionMaker.makeDecision(it)
+                } ?: return
                 val gameState = gameViewModel.gameState.value ?: return
 
                 if (decision) {

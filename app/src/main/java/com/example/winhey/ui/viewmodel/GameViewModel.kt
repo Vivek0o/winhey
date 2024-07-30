@@ -21,7 +21,7 @@ class GameViewModel : ViewModel() {
             player = player,
             isPlaying = true,
             amount = amount,
-            gameCount = _gameState.value!!.gameCount + 1
+            gameCount = _gameState.value!!.gameCount
         )
     }
 
