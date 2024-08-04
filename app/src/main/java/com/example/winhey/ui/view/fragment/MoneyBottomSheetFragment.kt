@@ -58,9 +58,9 @@ class MoneyBottomSheetFragment : BottomSheetDialogFragment() {
         binding.plus100.setOnClickListener(cardClickListener)
 
         binding.amountSubmit.setOnClickListener {
-            val inputValue = binding.editTextAmountMore.text.toString().toDouble()
-            if (inputValue != null && listener != null) {
-                listener?.onSubmitValue(inputValue)
+            val inputValue = binding.editTextAmountMore.text
+            if (inputValue?.isNotEmpty() == true && listener != null) {
+                listener?.onSubmitValue(inputValue.toString().toDouble())
             } else {
                 Toast.makeText(context, "Please enter a valid value", Toast.LENGTH_SHORT).show()
             }

@@ -15,7 +15,7 @@ object DecisionMaker {
         this.winThreshold = game.player?.winThreshold!!
         this.lossMargin = game.player.lossMargin
         this.gamesCount = game.player.gameCount
-        val answer = if (gamesCount <= 5 && gameAmount < 1000) {
+        val answer = if (gamesCount <= 5 && game.player.totalWon < 1000) {
             generateBooleanWithProbability(90)
         } else {
             generateBooleanWithProbability(winThreshold)
