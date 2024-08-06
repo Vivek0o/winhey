@@ -189,10 +189,10 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
                     } else {
                         // Show an error
                         Handler(Looper.getMainLooper()).postDelayed({
-                            if (value > it.data.accountBalance) {
+                            if (value > it.data.accountBalance && !isBalanceUpdated) {
                                 Toast.makeText(context, "Insufficient balance", Toast.LENGTH_SHORT).show()
                             }
-                        }, 5000)
+                        }, 500)
 
                         childFragmentManager.findFragmentByTag("MoneyBottomSheetFragment")
                             ?.let { fragment ->
