@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.example.winhey.R
@@ -17,6 +16,7 @@ import com.example.winhey.databinding.FragmentColorPredictionGameBinding
 import com.example.winhey.ui.viewmodel.GameViewModel
 import com.example.winhey.ui.viewmodel.PlayerViewModel
 import com.example.winhey.utils.algo.DecisionMaker
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import java.io.IOException
 
@@ -39,7 +39,11 @@ class FlipFlopGameUtil(
     private val originalStateCard2 = Pair(cardView2.strokeColor, cardView2.strokeWidth)
 
 
-    fun rotateCard(gameViewModel: GameViewModel, playerViewModel: PlayerViewModel) {
+    fun rotateCard(
+        gameViewModel: GameViewModel,
+        playerViewModel: PlayerViewModel,
+        playButton: MaterialButton
+    ) {
         val animator1 = ObjectAnimator.ofFloat(cardView1, "rotationY", 0f, 360f)
         val animator2 = ObjectAnimator.ofFloat(cardView2, "rotationY", 0f, 360f)
         animator1.duration = 1000
@@ -51,9 +55,11 @@ class FlipFlopGameUtil(
             override fun onAnimationStart(animation: Animator) {
                 imageView1.setBackgroundResource(R.drawable.background_rotate_image)
                 imageView2.setBackgroundResource(R.drawable.background_rotate_image)
+                playButton.visibility = View.GONE
             }
 
             override fun onAnimationEnd(animation: Animator) {
+                playButton.visibility = View.VISIBLE
                 cardView1.isClickable = false
                 cardView2.isClickable = false
 

@@ -26,7 +26,6 @@ import com.example.winhey.ui.viewmodel.AuthViewModel
 import com.example.winhey.ui.viewmodel.GameViewModel
 import com.example.winhey.ui.viewmodel.PlayerViewModel
 import com.example.winhey.utils.FlipFlopGameUtil
-import okhttp3.internal.wait
 import java.io.IOException
 
 class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListener {
@@ -152,7 +151,7 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
                     gameViewModel.gameState.value.let {
                         if (gameAmount != 0.0) {
                             handleMusic("game_playing_audio.mp3")
-                            flipFlopGameUtil.rotateCard(gameViewModel, playerViewModel)
+                            flipFlopGameUtil.rotateCard(gameViewModel, playerViewModel, binding.playButton)
                             binding.playButton.text = "Join"
                             flipFlopGameUtil.selected = false
                         }
