@@ -42,6 +42,8 @@ class AdminFragment : Fragment() {
     private lateinit var adminName: String
     private lateinit var adminEmail: String
     private lateinit var googleDriveApkUrl: String
+    private lateinit var apkVersion: String
+    private lateinit var qrImageUrl: String
     val TAG = AdminFragment::class.java.name
     val PICK_IMAGE_REQUEST = 101
 
@@ -66,7 +68,11 @@ class AdminFragment : Fragment() {
                 when (it) {
                     is Resource.Success -> {
                         if (!it.data.isLoggedIn && it.data.userType == UserType.NONE) {
-                            findNavController().navigate(R.id.action_adminFragment_to_authFragment)
+                            findNavController().navigate(
+                                R.id.action_adminFragment_to_authFragment,
+                                null,
+                                NavOptions.Builder().setPopUpTo(R.id.adminFragment, true).build()
+                            )
                         }
                     }
 
@@ -160,11 +166,13 @@ class AdminFragment : Fragment() {
             when(it) {
                 is Resource.Success -> {
                     if (it.data.currentAppVersion != PreferencesUtil.getAppVersion(requireContext())) {
-                        googleDriveApkUrl = it.data.apkUrl
                         binding.appUpdate.visibility = View.VISIBLE
                     } else {
                         binding.appUpdate.visibility = View.GONE
                     }
+                    googleDriveApkUrl = it.data.apkUrl
+                    apkVersion = it.data.currentAppVersion
+                    qrImageUrl = it.data.qRImage
                 } else -> {}
             }
         }
@@ -219,7 +227,11 @@ class AdminFragment : Fragment() {
 
     private fun handleTransactionDetail() {
         binding.btnTransactionDetails.setOnClickListener {
-            findNavController().navigate(R.id.action_adminFragment_to_transactionFragment)
+            findNavController().navigate(
+                R.id.action_adminFragment_to_transactionFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.adminFragment, true).build()
+            )
         }
     }
 
@@ -269,15 +281,25 @@ class AdminFragment : Fragment() {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
             FirebaseHelper.uploadImageToFirebase(data.data!!, object : FirebaseHelper.FirebaseCallback<String> {
                 override fun onSuccess(result: String) {
-                    mainViewModel.updateCommonData(Common(adminName, adminEmail, result))
-                    Toast.makeText(context, "QR code updated successfully: $result", Toast.LENGTH_SHORT).show()
+                    mainViewModel.updateCommonData(
+                        Common(
+                            adminName = adminName,
+                            adminEmail = adminEmail,
+                            qRImage = result,
+                            currentAppVersion = apkVersion,
+                            apkUrl = googleDriveApkUrl
+                        )
+                    )
+                    Toast.makeText(
+                        context,
+                        "QR code updated successfully: $result",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onFailure(error: String) {
                     Toast.makeText(context, "QR code inundation failed: $error", Toast.LENGTH_SHORT).show()
                 }
-
-
             })
         }
     }

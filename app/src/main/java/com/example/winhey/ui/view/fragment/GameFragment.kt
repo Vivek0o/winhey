@@ -3,6 +3,8 @@ package com.example.winhey.ui.view.fragment
 import android.app.AlertDialog
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +14,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.winhey.R
 import com.example.winhey.data.models.Player
@@ -23,6 +26,7 @@ import com.example.winhey.ui.viewmodel.AuthViewModel
 import com.example.winhey.ui.viewmodel.GameViewModel
 import com.example.winhey.ui.viewmodel.PlayerViewModel
 import com.example.winhey.utils.FlipFlopGameUtil
+import okhttp3.internal.wait
 import java.io.IOException
 
 class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListener {
@@ -85,7 +89,10 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
             .setMessage("Do you really want to go back?")
             .setPositiveButton("Yes") { _, _ ->
                 // Navigate back
-                findNavController().navigate(R.id.action_gameFragment_to_playerFragment)
+                findNavController().navigate(
+                    R.id.action_gameFragment_to_playerFragment,
+                    null, NavOptions.Builder().setPopUpTo(R.id.gameFragment, true).build()
+                )
             }
             .setNegativeButton("No", null)
             .show()
@@ -182,9 +189,12 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
                         isBalanceUpdated = true
                     } else {
                         // Show an error
-                        if (value >= it.data.accountBalance) {
-                            Toast.makeText(context, "Insufficient balance", Toast.LENGTH_SHORT).show()
-                        }
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            if (value > it.data.accountBalance) {
+                                Toast.makeText(context, "Insufficient balance", Toast.LENGTH_SHORT).show()
+                            }
+                        }, 5000)
+
                         childFragmentManager.findFragmentByTag("MoneyBottomSheetFragment")
                             ?.let { fragment ->
                                 (fragment as MoneyBottomSheetFragment).dismiss()

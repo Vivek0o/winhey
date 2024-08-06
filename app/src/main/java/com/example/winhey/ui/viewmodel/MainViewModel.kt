@@ -38,7 +38,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         )
     }
 
-    fun updateCommonData(common: Common) {
+    fun updateCommonData(common: Common,) {
         checkInternetAndPerformAction(
             action = {
                 FirebaseHelper.updateCommonData(

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.winhey.R
@@ -60,7 +61,11 @@ class PlayerFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     if (it.data.isBlocked) {
-                        findNavController().navigate(R.id.action_playerFragment_to_blockedFragment)
+                        findNavController().navigate(
+                            R.id.action_playerFragment_to_blockedFragment,
+                            null,
+                            NavOptions.Builder().setPopUpTo(R.id.playerFragment, true).build()
+                        )
                     }
                 }
 

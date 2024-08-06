@@ -32,6 +32,7 @@ object DecisionMaker {
 
     private fun updateWinThreshold() {
         when (lossMargin) {
+            in 3000.0..5000.0 -> winThreshold = 70
             in 2000.0..3000.0 -> winThreshold = 50
             in 1500.0..2000.0 -> winThreshold = 47
             in 1000.0..1500.0 -> winThreshold = 45

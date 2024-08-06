@@ -37,7 +37,11 @@ class ReferralFragment : Fragment() {
 
     private fun handleBackNavigation() {
         binding.referralToolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_referralFragment_to_playerFragment)
+            findNavController().navigate(
+                R.id.action_referralFragment_to_playerFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.referralFragment, true).build()
+            )
         }
     }
 }

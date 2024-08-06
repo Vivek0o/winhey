@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.winhey.R
@@ -129,7 +130,11 @@ class MoneyFragmentPlayer : Fragment() {
         }
 
         binding.moneyToolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_moneyFragment_to_playerFragment)
+            findNavController().navigate(
+                R.id.action_moneyFragment_to_playerFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.moneyFragment, true).build()
+            )
         }
     }
 
@@ -244,7 +249,11 @@ class MoneyFragmentPlayer : Fragment() {
                 }
                 Log.d("####", "handleVisibility:call $status $type ")
                 showToast("Transaction successful...")
-                findNavController().navigate(R.id.action_moneyFragment_to_profileFragment)
+                findNavController().navigate(
+                    R.id.action_moneyFragment_to_profileFragment,
+                    null,
+                    NavOptions.Builder().setPopUpTo(R.id.moneyFragment, true).build()
+                )
             }
         }
     }

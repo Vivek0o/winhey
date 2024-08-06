@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.winhey.R
@@ -55,7 +56,11 @@ class TransactionFragment : Fragment() {
 
     private fun handleButtonClick() {
         binding.transactionDetailToolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_transactionFragment_to_adminFragment)
+            findNavController().navigate(
+                R.id.action_transactionFragment_to_adminFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.transactionFragment, true).build()
+            )
         }
     }
 

@@ -86,15 +86,27 @@ class ProfileFragment : Fragment() {
 
     private fun handleButtonClick() {
         binding.paymentGateway.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_moneyFragment)
+            findNavController().navigate(
+                R.id.action_profileFragment_to_moneyFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build()
+            )
         }
 
         binding.referralGateway.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_referralFragment)
+            findNavController().navigate(
+                R.id.action_profileFragment_to_referralFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build()
+            )
         }
 
         binding.profileToolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_playerFragment)
+            findNavController().navigate(
+                R.id.action_profileFragment_to_playerFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build()
+            )
         }
     }
 
@@ -138,10 +150,11 @@ class ProfileFragment : Fragment() {
             when(it) {
                 is Resource.Success -> {
                     if (!it.data.isLoggedIn && it.data.userType == UserType.NONE) {
-                        val navOptions = NavOptions.Builder()
-                            .setPopUpTo(findNavController().currentDestination!!.id, true)
-                            .build()
-                        findNavController().navigate(R.id.action_profileFragment_to_authFragment, null , navOptions)
+                        findNavController().navigate(
+                            R.id.action_profileFragment_to_authFragment,
+                            null,
+                            NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build()
+                        )
                     }
                 }
 

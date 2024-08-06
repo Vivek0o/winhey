@@ -54,11 +54,18 @@ class AuthFragment : Fragment() {
                     resource.data.let {
                         when {
                             it.isLoggedIn && it.userType == UserType.ADMIN -> {
-                                findNavController().navigate(R.id.action_authFragment_to_adminFragment)
-
+                                findNavController().navigate(
+                                    R.id.action_authFragment_to_adminFragment,
+                                    null,
+                                    NavOptions.Builder().setPopUpTo(R.id.authFragment, true).build()
+                                )
                             }
                             it.isLoggedIn && it.userType == UserType.PLAYER -> {
-                                findNavController().navigate(R.id.action_authFragment_to_playerFragment)
+                                findNavController().navigate(
+                                    R.id.action_authFragment_to_playerFragment,
+                                    null,
+                                    NavOptions.Builder().setPopUpTo(R.id.authFragment, true).build()
+                                )
                             }
 
                             else -> handleVisibility(Status.SUCCESS)
