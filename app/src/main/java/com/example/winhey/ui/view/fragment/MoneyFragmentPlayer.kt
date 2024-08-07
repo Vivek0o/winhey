@@ -43,6 +43,7 @@ class MoneyFragmentPlayer : Fragment() {
 
 
     private lateinit var playerViewModel: PlayerViewModel
+    private var withdrawalAmount = 0.0
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -85,6 +86,12 @@ class MoneyFragmentPlayer : Fragment() {
                     "Winning Amount: ${it.data.totalWon}".also {
                         binding.userWinningAmount.text = it
                     }
+                    binding.containerWithdraw.withdrawalAmount.text =
+                        getWithdrawalAmount(it.data.accountBalance, it.data.totalWon).toString()
+                    binding.containerWithdraw.currentBalanceAmount.text =
+                        it.data.accountBalance.toString()
+                    binding.containerWithdraw.winningBalanceAmount.text =
+                        (it.data.totalWon * 0.20).toString()
                 }
 
                 is Resource.Loading -> {
@@ -105,9 +112,13 @@ class MoneyFragmentPlayer : Fragment() {
 
     }
 
-    private fun getWithdrawalAmount(totalWon: Double): Double {
-        var wonAmount = totalWon.toInt()
-        return wonAmount * 0.20;
+    private fun getWithdrawalAmount(accountBalance: Double, winingBalance: Double): Double {
+        var wonAmount = 0.0
+        if (winingBalance > 0) {
+           wonAmount = winingBalance * 0.20
+        }
+        withdrawalAmount =  accountBalance + wonAmount
+        return withdrawalAmount
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -164,7 +175,7 @@ class MoneyFragmentPlayer : Fragment() {
             TransactionType.WITHDRAW -> {
                 val amount = binding.containerWithdraw.editTextAmountWithdrawal.text.toString()
                 val upiID = binding.containerWithdraw.editTextUserUPI.text.toString()
-                if (upiID.isNotEmpty() && amount.isNotEmpty() && amount.toDouble() <= currentPlayer.accountBalance) {
+                if (upiID.isNotEmpty() && amount.isNotEmpty() && amount.toDouble() < withdrawalAmount) {
                     Transaction(
                         userID = currentPlayer.id,
                         name = currentPlayer.name,
@@ -248,7 +259,7 @@ class MoneyFragmentPlayer : Fragment() {
                     binding.containerWithdraw.errorView.visibility = View.GONE
                 }
                 Log.d("####", "handleVisibility:call $status $type ")
-                showToast("Transaction successful...")
+                showToast("Transaction updated, it will take 1-2hrs to update in wallet")
                 findNavController().navigate(
                     R.id.action_moneyFragment_to_profileFragment,
                     null,

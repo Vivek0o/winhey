@@ -17,9 +17,11 @@
             android:text="@string/_0_0"
             android:textColor="@color/Black"
             app:cornerRadius="5dp"
-            app:icon="@drawable/ic_add"
+            app:icon="@drawable/ic_win"
             app:iconGravity="textStart"
-            app:iconTint="@color/Black"
+            app:iconTintMode="multiply"
+            app:iconTint="@null"
+            app:iconSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,9 +34,10 @@
             android:text="@string/_0_0"
             android:textColor="@color/Black"
             app:cornerRadius="5dp"
-            app:icon="@drawable/ic_wallet"
+            app:icon="@drawable/ic_wallet_color"
             app:iconGravity="textStart"
-            app:iconTint="@color/Black"
+            app:iconTint="@null"
+            app:iconTintMode="multiply"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

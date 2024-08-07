@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="payment_string">Take the screenshot and pay through any upi gpay phonepay and update the transaction id below</string>
+    <string name="payment_string">Take the screenshot and pay through any upi and add the transaction id below</string>
     <string name="enter_the_transaction_id">Enter the Transaction Id</string>
     <string name="transaction_update">Transaction id is updated, the money will be credited in 1-2 hours</string>
     <string name="update_button">Update</string>
@@ -61,5 +61,7 @@
     <string name="text">Text</string>
     <string name="better_luck_next_time">Better Luck Next Time</string>
     <string name="won">Hurray !! Won</string>
-    <string name="withdrawal_amount">Withdrawal Amount</string>
+    <string name="withdrawal_amount">Withdrawal Amount :</string>
+    <string name="current_balance">Current Balance :</string>
+    <string name="winning_amount">Winning Amount :</string>
 </resources>
