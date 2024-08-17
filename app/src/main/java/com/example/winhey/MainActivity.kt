@@ -12,6 +12,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.winhey.data.models.UserType
+import com.example.winhey.utils.WinHeyUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -46,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (navController.currentDestination?.id != R.id.playerFragment) {
+                if (navController.currentDestination?.id != R.id.playerFragment && WinHeyUtil.userType == UserType.PLAYER) {
                     navController.navigate(R.id.playerFragment)
                 } else {
                     if (backPressedTime + 2000 > System.currentTimeMillis()) {

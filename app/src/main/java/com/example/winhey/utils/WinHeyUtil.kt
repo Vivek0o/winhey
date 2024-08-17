@@ -10,8 +10,13 @@ import com.example.winhey.data.models.UserType
 
 object WinHeyUtil {
 
-    fun determineUserType(email: String?): UserType =
-        if (email == null) UserType.NONE else if (email.contains("admin")) UserType.ADMIN else UserType.PLAYER
+    var userType: UserType = UserType.NONE
+
+    fun determineUserType(email: String?): UserType {
+        userType = if (email == null) UserType.NONE else if (email.contains("admin")) UserType.ADMIN else UserType.PLAYER
+        return userType
+    }
+
 
     fun isInternetAvailable(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
