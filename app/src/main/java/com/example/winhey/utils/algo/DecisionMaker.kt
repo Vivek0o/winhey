@@ -1,6 +1,5 @@
 package com.example.winhey.utils.algo
 
-import android.util.Log
 import com.example.winhey.data.models.GameState
 import com.example.winhey.data.models.ResultType
 import kotlin.random.Random
@@ -45,7 +44,7 @@ object DecisionMaker {
             in -1500.0..-1000.0 -> winThreshold = 15
             in -2000.0..-1500.0 -> winThreshold = 10
             in -2500.0..-2000.0 -> winThreshold = 5
-            else -> winThreshold = if (winThreshold > 0.0) {
+            else -> winThreshold = if (lossMargin > 0.0) {
                 50
             } else 1
 

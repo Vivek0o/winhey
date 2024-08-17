@@ -64,7 +64,6 @@
             android:layout_margin="10dp"
             android:hint="@string/add_updated_balance"
             android:textColorHint="@color/Black"
-
             app:hintTextColor="@color/Black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/logo"
@@ -73,6 +72,29 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextWalletBalance"
+                android:textColor="@color/Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:paddingStart="58dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutWinningBalance"
+            style="@style/OutlinedBoxStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/add_updated_winning_balance"
+            android:textColorHint="@color/Black"
+            app:hintTextColor="@color/Black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logo"
+            app:startIconDrawable="@drawable/ic_payment"
+            app:startIconTint="@color/Black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextWinningBalance"
                 android:textColor="@color/Black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

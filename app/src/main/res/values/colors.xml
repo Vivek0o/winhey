@@ -7,6 +7,7 @@
     <color name="colorControlNormal">#000000</color>
     <color name="colorButtonTextColor">#F4F2F6</color>
     <color name="colorWon">#FF197819</color>
+    <color name="colorLoss">#D32F2F</color>
 
     <!-- Define color for night mode (optional) -->
     <color name="colorPrimaryNight">#F4F2F6</color>
@@ -21,6 +22,5 @@
     <color name="baseColor">#94d2bd</color>
     <color name="baseColor80">#8094d2bd</color>
     <color name="baseColor60">#6094d2bd</color>
-
 
 </resources>

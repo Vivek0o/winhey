@@ -41,8 +41,8 @@ class AdminFragment : Fragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var adminName: String
     private lateinit var adminEmail: String
-    private lateinit var googleDriveApkUrl: String
-    private lateinit var apkVersion: String
+    private var googleDriveApkUrl: String = ""
+    private var apkVersion: String = "1.1"
     private lateinit var qrImageUrl: String
     val TAG = AdminFragment::class.java.name
     val PICK_IMAGE_REQUEST = 101
@@ -172,6 +172,7 @@ class AdminFragment : Fragment() {
                     }
                     googleDriveApkUrl = it.data.apkUrl
                     apkVersion = it.data.currentAppVersion
+                    Log.d("####", "onCreateView: " + apkVersion)
                     qrImageUrl = it.data.qRImage
                 } else -> {}
             }

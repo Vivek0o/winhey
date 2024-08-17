@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
@@ -25,6 +26,7 @@ import com.example.winhey.data.models.TransactionType
 import com.example.winhey.databinding.FragmentMoneyPlayerBinding
 import com.example.winhey.ui.PlayerMoneyViewModelFactory
 import com.example.winhey.ui.PlayerViewModelFactory
+import com.example.winhey.ui.viewmodel.AdminViewModel
 import com.example.winhey.ui.viewmodel.AuthViewModel
 import com.example.winhey.ui.viewmodel.MainViewModel
 import com.example.winhey.ui.viewmodel.PlayerMoneyViewModel
@@ -87,11 +89,7 @@ class MoneyFragmentPlayer : Fragment() {
                         binding.userWinningAmount.text = it
                     }
                     binding.containerWithdraw.withdrawalAmount.text =
-                        getWithdrawalAmount(it.data.accountBalance, it.data.totalWon).toString()
-                    binding.containerWithdraw.currentBalanceAmount.text =
-                        it.data.accountBalance.toString()
-                    binding.containerWithdraw.winningBalanceAmount.text =
-                        (it.data.totalWon * 0.20).toString()
+                        "${getWithdrawalAmount(it.data.totalWon)}"
                 }
 
                 is Resource.Loading -> {
@@ -112,12 +110,12 @@ class MoneyFragmentPlayer : Fragment() {
 
     }
 
-    private fun getWithdrawalAmount(accountBalance: Double, winingBalance: Double): Double {
+    private fun getWithdrawalAmount(winingBalance: Double): Double {
         var wonAmount = 0.0
         if (winingBalance > 0) {
-           wonAmount = winingBalance * 0.20
+           wonAmount = winingBalance * 0.50
         }
-        withdrawalAmount =  accountBalance + wonAmount
+        withdrawalAmount = wonAmount
         return withdrawalAmount
     }
 

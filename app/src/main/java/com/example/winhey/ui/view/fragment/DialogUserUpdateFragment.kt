@@ -2,6 +2,7 @@ package com.example.winhey.ui.view.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.strictmode.ResourceMismatchViolation
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +15,13 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.winhey.R
 import com.example.winhey.data.models.Player
+import com.example.winhey.data.models.Resource
 import com.example.winhey.data.models.Status
+import com.example.winhey.data.models.TransactionType
 import com.example.winhey.databinding.FragmentAdminBinding
 import com.example.winhey.databinding.FragmentDialogUserUpdateBinding
 import com.example.winhey.ui.viewmodel.AdminViewModel
+import com.example.winhey.ui.viewmodel.PlayerMoneyViewModel
 
 class DialogUserUpdateFragment : DialogFragment() {
 
@@ -36,7 +40,7 @@ class DialogUserUpdateFragment : DialogFragment() {
         val totalWon = arguments?.getDouble("totalWon") ?: 0.0
         val userName = arguments?.getString("userName") ?: ""
         val userId = arguments?.getString("playerId")
-        val walletBalance = arguments?.getDouble("walletBalance")
+        val walletBalance = arguments?.getDouble("walletBalance") ?: 0.0
         val gamePlayed = arguments?.getInt("gamePlayed") ?: 0
 
         binding.editTextName.text = "Name: $userName"
@@ -48,6 +52,7 @@ class DialogUserUpdateFragment : DialogFragment() {
 
         binding.buttonUpdate.setOnClickListener {
             val updatedWalletBalance = binding.editTextWalletBalance.text
+            val updatedWinningBalance = binding.editTextWinningBalance.text
 
             if (updatedWalletBalance != null && updatedWalletBalance.toString()
                     .isNotEmpty() && updatedWalletBalance.toString().toDouble() >= 0
@@ -64,15 +69,28 @@ class DialogUserUpdateFragment : DialogFragment() {
                             gameCount = gamePlayed
                         )
                     )
-                    dismiss()
                 }
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Balance can not be empty or negative",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
+
+            if (updatedWinningBalance != null && updatedWinningBalance.toString()
+                    .isNotEmpty() && updatedWinningBalance.toString().toDouble() >= 0
+            ) {
+                userId?.let {
+                    viewModel.updatePlayer(
+                        Player(
+                            id = it,
+                            name = userName,
+                            email = emailId,
+                            accountBalance = walletBalance,
+                            totalLost = totalLoss,
+                            totalWon = updatedWinningBalance.toString().toDouble(),
+                            gameCount = gamePlayed
+                        )
+                    )
+
+                }
+            }
+            dismiss()
         }
 
         binding.deleteUpdate.setOnClickListener {
