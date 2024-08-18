@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
@@ -26,7 +25,6 @@ import com.example.winhey.data.models.TransactionType
 import com.example.winhey.databinding.FragmentMoneyPlayerBinding
 import com.example.winhey.ui.PlayerMoneyViewModelFactory
 import com.example.winhey.ui.PlayerViewModelFactory
-import com.example.winhey.ui.viewmodel.AdminViewModel
 import com.example.winhey.ui.viewmodel.AuthViewModel
 import com.example.winhey.ui.viewmodel.MainViewModel
 import com.example.winhey.ui.viewmodel.PlayerMoneyViewModel
@@ -113,7 +111,7 @@ class MoneyFragmentPlayer : Fragment() {
     private fun getWithdrawalAmount(winingBalance: Double): Double {
         var wonAmount = 0.0
         if (winingBalance > 0) {
-           wonAmount = winingBalance * 0.50
+           wonAmount = winingBalance * 1
         }
         withdrawalAmount = wonAmount
         return withdrawalAmount
@@ -173,7 +171,7 @@ class MoneyFragmentPlayer : Fragment() {
             TransactionType.WITHDRAW -> {
                 val amount = binding.containerWithdraw.editTextAmountWithdrawal.text.toString()
                 val upiID = binding.containerWithdraw.editTextUserUPI.text.toString()
-                if (upiID.isNotEmpty() && amount.isNotEmpty() && amount.toDouble() < withdrawalAmount) {
+                if (upiID.isNotEmpty() && amount.isNotEmpty() && amount.toDouble() <= withdrawalAmount) {
                     Transaction(
                         userID = currentPlayer.id,
                         name = currentPlayer.name,

@@ -237,6 +237,7 @@ class AdminFragment : Fragment() {
     }
 
     private fun performCardClick(player: Player?, view: View) {
+        Log.d("####", "performCardClick: " + player?.gameCount)
         val dialog = DialogUserUpdateFragment.newInstance(
             playerId = player?.id,
             totalLoss = player?.totalLost,

@@ -64,7 +64,7 @@
     <string name="withdrawal_amount">Withdrawal Amount :</string>
     <string name="current_balance">Current Balance :</string>
     <string name="winning_amount">Winning Amount :</string>
-    <string name="_50_of_winning_amount">(50% of winning amount)</string>
+    <string name="_50_of_winning_amount">(100% of winning amount)</string>
     <string name="add_updated_winning_balance">Add updated winning balance</string>
     <string name="request_balance">Request Balance</string>
     <string name="withdraw_request">Withdraw Request</string>

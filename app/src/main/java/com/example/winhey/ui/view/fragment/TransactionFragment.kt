@@ -35,9 +35,14 @@ class TransactionFragment : Fragment() {
             when (resource) {
                 is Resource.Success -> {
                     val sortedList = sortList(resource.data)
-                    transactionDetailAdapter =
-                        TransactionDetailAdapter(sortedList, playerMoneyViewModel)
-                    binding.transactionDetails.adapter = transactionDetailAdapter
+                    if (sortedList?.isEmpty() == true) {
+                        binding.noTransactionFound.visibility = View.VISIBLE
+                    } else {
+                        binding.noTransactionFound.visibility = View.GONE
+                        transactionDetailAdapter =
+                            TransactionDetailAdapter(sortedList, playerMoneyViewModel)
+                        binding.transactionDetails.adapter = transactionDetailAdapter
+                    }
                 }
 
                 is Resource.Failure -> {

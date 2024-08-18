@@ -129,7 +129,7 @@ class DialogUserUpdateFragment : DialogFragment() {
             args.putDouble("totalWon", totalWon!!)
             args.putDouble("totalLoss", totalLoss!!)
             args.putString("playerId", playerId)
-            args.putInt("gamePlayer", gamePlayed!!)
+            args.putInt("gamePlayed", gamePlayed!!)
 
             fragment.arguments = args
             return fragment
