@@ -57,6 +57,40 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.1" />
 
+
+        <LinearLayout
+            android:id="@+id/participants"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="70dp"
+            app:layout_constraintTop_toBottomOf="@id/gameName">
+
+            <TextView
+                android:id="@+id/participant1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:fontFamily="@font/playwritevn_variablefont_wght"
+                android:textColor="@color/White"
+                android:text="@string/_0000"
+                android:textSize="5sp" />
+
+            <TextView
+                android:id="@+id/participant2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/White"
+                android:text="@string/_0000"
+                android:fontFamily="@font/playwritevn_variablefont_wght"
+                android:textSize="5sp" />
+
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/cardView"
             android:layout_width="match_parent"
@@ -66,7 +100,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.36">
+            app:layout_constraintVertical_bias="0.40">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardView1"

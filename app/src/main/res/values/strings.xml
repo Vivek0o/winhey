@@ -85,4 +85,5 @@
     <string name="request_balance">Request Balance</string>
     <string name="withdraw_request">Withdraw Request</string>
     <string name="deposit_request">Deposit Request</string>
+    <string name="_0000">0000</string>
 </resources>

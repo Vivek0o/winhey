@@ -13,6 +13,8 @@ import com.example.winhey.R
 import com.example.winhey.data.models.GameState
 import com.example.winhey.data.models.ResultType
 import com.example.winhey.databinding.FragmentColorPredictionGameBinding
+import com.example.winhey.ui.view.fragment.AnimationState
+import com.example.winhey.ui.view.fragment.GameFragment
 import com.example.winhey.ui.viewmodel.GameViewModel
 import com.example.winhey.ui.viewmodel.PlayerViewModel
 import com.example.winhey.utils.algo.DecisionMaker
@@ -27,8 +29,9 @@ class FlipFlopGameUtil(
     private val imageView2: ImageView,
     private val context: Context,
     private val view: View?,
-    private val binding: FragmentColorPredictionGameBinding
-) {
+    private val binding: FragmentColorPredictionGameBinding,
+    private val gameFragment: GameFragment
+){
 
     private var selectedCard: MaterialCardView? = null
     private var mediaPlayer: MediaPlayer? = null
@@ -78,7 +81,6 @@ class FlipFlopGameUtil(
                     }, 3000)
                     gameViewModel.completeGame()
                     updatePlayer(gameState, ResultType.WON)
-
                 } else {
                     imageView1.setBackgroundResource(R.drawable.thala)
                     imageView2.setBackgroundResource(R.drawable.king_kohli)
@@ -90,6 +92,8 @@ class FlipFlopGameUtil(
                     gameViewModel.completeGame()
                     updatePlayer(gameState, ResultType.LOSS)
                 }
+
+                gameFragment.onAnimationEnd()
             }
 
             private fun updatePlayer(gameState: GameState, type: ResultType) {

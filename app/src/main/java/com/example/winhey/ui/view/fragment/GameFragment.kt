@@ -26,9 +26,14 @@ import com.example.winhey.ui.viewmodel.AuthViewModel
 import com.example.winhey.ui.viewmodel.GameViewModel
 import com.example.winhey.ui.viewmodel.PlayerViewModel
 import com.example.winhey.utils.FlipFlopGameUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.IOException
 
-class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListener {
+class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListener, AnimationState {
 
     private lateinit var binding: FragmentColorPredictionGameBinding
     private var mediaPlayer: MediaPlayer? = null
@@ -40,6 +45,8 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
     private lateinit var flipFlopGameUtil: FlipFlopGameUtil
     private lateinit var backPressedCallback: OnBackPressedCallback
     private var gameAmount: Double = 0.0
+    private var counterJob: Job? = null
+    private var isCounting = true
     private val bottomSheetFragment = MoneyBottomSheetFragment.newInstance()
 
 
@@ -73,14 +80,37 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
             binding.imageView2,
             requireContext(),
             view,
-            binding)
+            binding,
+            this)
 
         flipFlopGameUtil.handleCardClick()
         handlePlayerData()
         handleMusic("game_entry_audio.mp3")
         handleButtonClick()
+        startRandomCounter()
         openBottomSheet()
         return binding.root
+    }
+
+    private fun startRandomCounter() {
+        isCounting = true
+        counterJob = CoroutineScope(Dispatchers.Main).launch {
+            var value1 = 10
+            var value2 = 10
+
+            while (isCounting) {
+                // Update the TextViews with the new values
+                binding.participant1.text = "$value1 Joined"
+                binding.participant2.text = "$value2 Joined"
+
+                // Increment the values by a random amount
+                value1 += (10..50).random()
+                value2 += (10..50).random()
+
+                // Wait for 1 second before updating again
+                delay(1000)
+            }
+        }
     }
 
     private fun showExitConfirmationDialog() {
@@ -147,6 +177,7 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
                 flipFlopGameUtil.changeCardBackground()
                 bottomSheetFragment.show(childFragmentManager, "MoneyBottomSheetFragment")
             } else {
+                stopCounter()
                 if (flipFlopGameUtil.selected) {
                     gameViewModel.gameState.value.let {
                         if (gameAmount != 0.0) {
@@ -163,10 +194,16 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
         }
     }
 
+    private fun stopCounter() {
+        isCounting = false
+        counterJob?.cancel()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer?.release()
         mediaPlayer = null
+        counterJob?.cancel()
     }
 
     override fun onSubmitValue(value: Double) {
@@ -243,4 +280,15 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
             }
         }
     }
+
+    override fun onAnimationEnd() {
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(5000)
+            startRandomCounter()
+        }
+    }
+}
+
+interface AnimationState {
+    fun onAnimationEnd()
 }
