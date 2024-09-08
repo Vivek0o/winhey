@@ -75,4 +75,10 @@
     <string name="coming_soon">Coming soon ..</string>
     <string name="top_performer">Top Performer</string>
     <string name="today_s_ranking_income">Today\'s Ranking Income</string>
+    <string name="my_history">My History</string>
+    <string name="game_history">Game History</string>
+    <string name="game_id">Game Id</string>
+    <string name="participants">Participants</string>
+    <string name="option">Option</string>
+    <string name="result">Result</string>
 </resources>

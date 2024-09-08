@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <LinearLayout
+            android:id="@+id/history_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal"
+            android:layout_margin="10sp"
+            android:weightSum="2"
+            >
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/game_history"
+                android:textColor="@color/Black"
+                android:backgroundTint="@color/baseColor60"
+                android:layout_marginEnd="2dp"
+                android:layout_weight="1"
+                android:textSize="14sp"/>
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/my_history"
+                android:layout_weight="1"
+                android:layout_marginStart="2dp"
+                android:backgroundTint="@color/baseColor60"
+                android:textColor="@color/Black"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/history_heading"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:weightSum="4"
+            android:layout_margin="18sp"
+            android:padding="10sp"
+            android:background="@color/baseColor"
+            app:layout_constraintTop_toBottomOf="@id/history_button">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/Black"
+                android:text="@string/game_id"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/Black"
+                android:text="@string/participants"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/Black"
+                android:layout_weight="1"
+                android:text="@string/option"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="@color/Black"
+                android:text="@string/result"
+                />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/history_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/LightWhite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/history_heading"
+            android:layout_marginStart="18sp"
+            android:layout_marginEnd="18sp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

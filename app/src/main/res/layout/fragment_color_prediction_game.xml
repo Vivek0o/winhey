@@ -3,225 +3,247 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_color_predication_game">
+        android:fillViewport="true">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/game_total_won"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/baseColor60"
-            android:text="@string/_0_0"
-            android:textColor="@color/Black"
-            app:cornerRadius="5dp"
-            app:icon="@drawable/ic_win"
-            app:iconGravity="textStart"
-            app:iconTintMode="multiply"
-            app:iconTint="@null"
-            app:iconSize="25sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/game_total_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/baseColor60"
-            android:text="@string/_0_0"
-            android:textColor="@color/Black"
-            app:cornerRadius="5dp"
-            app:icon="@drawable/ic_wallet_color"
-            app:iconGravity="textStart"
-            app:iconTint="@null"
-            app:iconTintMode="multiply"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/gameName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/flip_flop_solitarie"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/White"
-            android:fontFamily="@font/playwritevn_variablefont_wght"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1" />
-
-
-        <LinearLayout
-            android:id="@+id/participants"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="70dp"
-            app:layout_constraintTop_toBottomOf="@id/gameName">
+            android:background="@drawable/background_color_predication_game">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/game_total_won"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/baseColor60"
+                android:text="@string/_0_0"
+                android:textColor="@color/Black"
+                app:cornerRadius="5dp"
+                app:icon="@drawable/ic_win"
+                app:iconGravity="textStart"
+                app:iconTintMode="multiply"
+                app:iconTint="@null"
+                app:iconSize="25sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/game_total_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/baseColor60"
+                android:text="@string/_0_0"
+                android:textColor="@color/Black"
+                app:cornerRadius="5dp"
+                app:icon="@drawable/ic_wallet_color"
+                app:iconGravity="textStart"
+                app:iconTint="@null"
+                app:iconTintMode="multiply"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/participant1"
-                android:layout_width="0dp"
+                android:id="@+id/gameName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:fontFamily="@font/playwritevn_variablefont_wght"
+                android:layout_marginTop="0dp"
+                android:text="@string/flip_flop_solitarie"
+                android:textSize="15sp"
+                android:textStyle="bold"
                 android:textColor="@color/White"
-                android:text="@string/_0000"
-                android:textSize="5sp" />
+                android:fontFamily="@font/playwritevn_variablefont_wght"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.1" />
 
-            <TextView
-                android:id="@+id/participant2"
-                android:layout_width="0dp"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/back_btn"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:backgroundTint="@color/AppBarColor"
+                app:icon="@drawable/ic_back_full_arrow"
+                app:iconGravity="textStart"
+                app:iconTint="@color/Black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.09"
+                />
+
+            <LinearLayout
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="360dp"
                 android:gravity="center"
-                android:textColor="@color/White"
-                android:text="@string/_0000"
-                android:fontFamily="@font/playwritevn_variablefont_wght"
-                android:textSize="5sp" />
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gameName"
+                app:layout_constraintVertical_bias="0.40">
 
-        </LinearLayout>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardView1"
+                    android:layout_width="150dp"
+                    android:layout_height="240dp"
+                    android:layout_margin="16dp"
+                    app:cardBackgroundColor="#00000000"
+                    app:cardCornerRadius="8dp">
 
-        <LinearLayout
-            android:id="@+id/cardView"
-            android:layout_width="match_parent"
-            android:layout_height="360dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.40">
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/background_removebg_preview" />
+                    <TextView
+                        android:id="@+id/participant1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:fontFamily="@font/playwritevn_variablefont_wght"
+                        android:textColor="@color/White"
+                        android:text="@string/_0000"
+                        android:layout_marginStart="5sp"
+                        android:layout_gravity="bottom |start"
+                        android:textSize="10sp" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView1"
-                android:layout_width="150dp"
-                android:layout_height="240dp"
-                android:layout_margin="16dp"
-                app:cardBackgroundColor="#00000000"
-                app:cardCornerRadius="8dp">
+                </com.google.android.material.card.MaterialCardView>
 
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="@drawable/background_removebg_preview" />
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardView2"
+                    android:layout_width="150dp"
+                    android:layout_height="240dp"
+                    android:layout_margin="16dp"
+                    app:cardBackgroundColor="#00000000"
+                    app:cardCornerRadius="8dp">
 
-            </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/background_removebg_preview" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView2"
-                android:layout_width="150dp"
-                android:layout_height="240dp"
-                android:layout_margin="16dp"
-                app:cardBackgroundColor="#00000000"
-                app:cardCornerRadius="8dp">
+                    <TextView
+                        android:id="@+id/participant2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/White"
+                        android:text="@string/_0000"
+                        android:layout_marginStart="5sp"
+                        android:layout_gravity="bottom |start"
+                        android:fontFamily="@font/playwritevn_variablefont_wght"
+                        android:textSize="10sp" />
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="@drawable/background_removebg_preview" />
+                </com.google.android.material.card.MaterialCardView>
 
-            </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/cardName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardView">
-
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/cardName"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:fontFamily="@font/playwritevn_variablefont_wght"
-                android:textColor="@color/White"
-                android:text="@string/virat"
-                android:textSize="30sp" />
+                android:orientation="horizontal"
+                android:layout_marginTop="-50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardView">
 
-            <TextView
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:fontFamily="@font/playwritevn_variablefont_wght"
+                    android:textColor="@color/White"
+                    android:text="@string/virat"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/White"
+                    android:text="@string/dhoni"
+                    android:fontFamily="@font/playwritevn_variablefont_wght"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/result_won"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@drawable/background_winner"
+                android:textSize="40sp"
+                android:textColor="@color/White"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/cardName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/result_lost"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:textSize="30sp"
+                android:background="@drawable/better_luck_next_time"
+                android:visibility="gone"
+                android:textColor="@color/White"
+                app:layout_constraintBottom_toBottomOf="@+id/cardName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/playButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@color/White"
-                android:text="@string/dhoni"
-                android:fontFamily="@font/playwritevn_variablefont_wght"
-                android:textSize="30sp" />
+                android:backgroundTint="@color/AppBarColor"
+                android:text="@string/join"
+                android:textColor="@color/Black"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardName" />
 
-        </LinearLayout>
+            <View
+                android:id="@+id/line_view"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_margin="18sp"
+                android:background="@color/Black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/playButton"
+                />
 
-        <ImageView
-            android:id="@+id/result_won"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:background="@drawable/background_winner"
-            android:textSize="40sp"
-            android:textColor="@color/White"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="invisible" />
+            <include
+                android:id="@+id/game_history_list"
+                layout="@layout/game_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:layout_marginBottom="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line_view" />
 
-        <ImageView
-            android:id="@+id/result_lost"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:textSize="30sp"
-            android:background="@drawable/better_luck_next_time"
-            android:visibility="gone"
-            android:textColor="@color/White"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/playButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/AppBarColor"
-            android:text="@string/join"
-            android:textColor="@color/Black"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardName" />
+    </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/back_btn"
-            android:layout_width="60sp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/AppBarColor"
-            app:icon="@drawable/ic_back_full_arrow"
-            app:iconGravity="textStart"
-            app:iconTint="@color/Black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.1" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

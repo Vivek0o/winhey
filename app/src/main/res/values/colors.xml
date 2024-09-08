@@ -18,6 +18,7 @@
 
     <color name="White">#F4F2F6</color>
     <color name="Black">#010003</color>
+    <color name="LightWhite">#80F4F2F6</color>
     <color name="AppBarColor">#379F7C</color>
     <color name="baseColor">#94d2bd</color>
     <color name="baseColor80">#8094d2bd</color>

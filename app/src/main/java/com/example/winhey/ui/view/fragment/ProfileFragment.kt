@@ -54,6 +54,7 @@ class ProfileFragment : Fragment() {
 
         val apiService = AvatarApiService.create()
         val repository = AvatarRepository(apiService, requireContext())
+
         val factory = AvatarViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory).get(AvatarViewModel::class.java)
 
@@ -65,8 +66,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun handleAvatar() {
-        val randomId = (1..1000).random()
-        viewModel.avatar.observe(viewLifecycleOwner) { resource ->
+        viewModel.userProfile.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {
                     // Show loading indicator
@@ -84,7 +84,7 @@ class ProfileFragment : Fragment() {
                 }
             }
         }
-        viewModel.fetchAvatar(randomId)    }
+    }
 
     private fun handleButtonClick() {
         binding.paymentGateway.setOnClickListener {

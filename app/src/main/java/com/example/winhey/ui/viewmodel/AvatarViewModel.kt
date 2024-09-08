@@ -8,27 +8,51 @@ import androidx.lifecycle.viewModelScope
 import com.example.winhey.data.models.Resource
 import com.example.winhey.data.repository.AvatarRepository
 import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
 
 class AvatarViewModel(private val repository: AvatarRepository) : ViewModel() {
 
-    private val _avatar = MutableLiveData<Resource<String>>()
-    val avatar: LiveData<Resource<String>> get() = _avatar
+    // LiveData for multiple avatars
+    private val _avatar1 = MutableLiveData<Resource<String>>()
+    val userProfile: LiveData<Resource<String>> get() = _avatar1
 
-    fun fetchAvatar(randomId: Int) {
+    private val _avatar2 = MutableLiveData<Resource<String>>()
+    val winnerFirst: LiveData<Resource<String>> get() = _avatar2
+
+    private val _avatar3 = MutableLiveData<Resource<String>>()
+    val winnnerSecond: LiveData<Resource<String>> get() = _avatar3
+
+    private val _avatar4 = MutableLiveData<Resource<String>>()
+    val winnerThird: LiveData<Resource<String>> get() = _avatar4
+
+    init {
+        // Fetch only if LiveData is not yet populated
+        fetchAvatar(1, (1..1000).random()) // Avatar 1
+        fetchAvatar(2, (1..1000).random()) // Avatar 2
+        fetchAvatar(3, (1..1000).random()) // Avatar 3
+        fetchAvatar(4, (1..1000).random()) // Avatar 4
+    }
+
+    // Generic function to fetch avatar by ID and position
+    private fun fetchAvatar(position: Int, randomId: Int) {
         viewModelScope.launch {
-            _avatar.value = Resource.Loading()
+            val liveData = getLiveDataForPosition(position)
+            if (liveData?.value is Resource.Success) {
+                // Avatar is already loaded, skip fetching
+                return@launch
+            }
 
-            // Check if there's a cached avatar
-            val cachedAvatar = getCachedAvatar()
+            liveData?.value = Resource.Loading()
+
+            // Check for cached avatar
+            val cachedAvatar = getCachedAvatar(position)
             if (cachedAvatar != null) {
-                _avatar.value = Resource.Success(cachedAvatar)
+                liveData?.value = Resource.Success(cachedAvatar)
                 return@launch
             }
 
             // Fetch new avatar from the network
             val result = repository.fetchRandomAvatar(randomId)
-            _avatar.value = if (result.isSuccess) {
+            liveData?.value = if (result.isSuccess) {
                 val path = result.getOrNull()
                 if (path != null) {
                     Resource.Success(path)
@@ -41,32 +65,25 @@ class AvatarViewModel(private val repository: AvatarRepository) : ViewModel() {
         }
     }
 
-
-    fun fetchAvatarForPerformer(randomId: Int) {
-        viewModelScope.launch {
-            _avatar.value = Resource.Loading()
-
-            // Fetch new avatar from the network
-            val result = repository.fetchRandomAvatar(randomId)
-            _avatar.value = if (result.isSuccess) {
-                val path = result.getOrNull()
-                if (path != null) {
-                    Resource.Success(path)
-                } else {
-                    Resource.Failure("Avatar path is null")
-                }
-            } else {
-                Resource.Failure(result.exceptionOrNull()?.message ?: "Unknown error")
-            }
+    // Helper function to get LiveData for a specific position
+    private fun getLiveDataForPosition(position: Int): MutableLiveData<Resource<String>>? {
+        return when (position) {
+            1 -> _avatar1
+            2 -> _avatar2
+            3 -> _avatar3
+            4 -> _avatar4
+            else -> null
         }
     }
 
-    private fun getCachedAvatar(): String? {
+    // Function to retrieve cached avatars based on position
+    private fun getCachedAvatar(position: Int): String? {
         val cacheDir = repository.context.cacheDir
-        val files = cacheDir.listFiles { _, name -> name.endsWith(".png") }
+        val files = cacheDir.listFiles { _, name -> name.startsWith("avatar_$position") && name.endsWith(".png") }
         return files?.firstOrNull()?.absolutePath
     }
 }
+
 
 class AvatarViewModelFactory(private val repository: AvatarRepository) :
     ViewModelProvider.Factory {

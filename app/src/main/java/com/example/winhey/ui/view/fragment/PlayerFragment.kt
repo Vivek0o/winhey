@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -92,33 +93,40 @@ class PlayerFragment : Fragment() {
             }
         }
 
-        handleAvatarForTopPerformer()
+        handleAvatarForPerformer(binding.topPerformerView.firstPlayerImage, 1)
+        handleAvatarForPerformer(binding.topPerformerView.secondPlayerImage, 2)
+        handleAvatarForPerformer(binding.topPerformerView.thirdPlayerImage, 3)
         handleWinningInformation()
         handleGameClick()
         return binding.root
     }
 
-    private fun handleAvatarForTopPerformer() {
-        val randomId = (1..100).random()
-        viewModel.avatar.observe(viewLifecycleOwner) { resource ->
+    private fun handleAvatarForPerformer(view: ImageView, avatarIndex: Int) {
+        val avatarLiveData = when (avatarIndex) {
+            1 -> viewModel.winnerFirst
+            2 -> viewModel.winnnerSecond
+            3 -> viewModel.winnerThird
+            else -> throw IllegalArgumentException("Invalid avatar index")
+        }
+
+        avatarLiveData.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {
-                    // Show loading indicator
+                    // Show loading indicator if necessary
                 }
                 is Resource.Success -> {
                     val imagePath = resource.data
+                    Log.d("####", "handleAvatarForPerformer: Avatar$avatarIndex: $imagePath")
                     Glide.with(this)
                         .load(imagePath)
                         .circleCrop()
-                        .into(binding.topPerformerView.firstPlayerImage)
+                        .into(view)
                 }
-
                 is Resource.Failure -> {
                     Toast.makeText(context, resource.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
-        viewModel.fetchAvatarForPerformer(randomId)
     }
 
 

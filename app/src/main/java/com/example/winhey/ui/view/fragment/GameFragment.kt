@@ -16,11 +16,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.winhey.R
+import com.example.winhey.data.local.GameHistoryItem
 import com.example.winhey.data.models.Player
 import com.example.winhey.data.models.Resource
 import com.example.winhey.databinding.FragmentColorPredictionGameBinding
 import com.example.winhey.ui.PlayerViewModelFactory
+import com.example.winhey.ui.adapter.GameHistoryAdapter
 import com.example.winhey.ui.viewmodel.AdminViewModel
 import com.example.winhey.ui.viewmodel.AuthViewModel
 import com.example.winhey.ui.viewmodel.GameViewModel
@@ -85,11 +88,27 @@ class GameFragment : Fragment(), MoneyBottomSheetFragment.MoneyBottomSheetListen
 
         flipFlopGameUtil.handleCardClick()
         handlePlayerData()
+        handleGameHistory()
         handleMusic("game_entry_audio.mp3")
         handleButtonClick()
         startRandomCounter()
         openBottomSheet()
         return binding.root
+    }
+
+    private fun handleGameHistory() {
+        binding.gameHistoryList.historyList.layoutManager = LinearLayoutManager(context)
+
+        val item = listOf(
+            GameHistoryItem("1", "121", "Dhoni", "Won"),
+            GameHistoryItem("2", "252", "Dhoni", "Loss"),
+            GameHistoryItem("3", "322", "Virat", "Loss"),
+            GameHistoryItem("4", "156", "Dhoni", "Won"),
+            GameHistoryItem("5", "278", "Virat", "Loss"),
+            )
+
+        val adapter = GameHistoryAdapter(item)
+        binding.gameHistoryList.historyList.adapter = adapter
     }
 
     private fun startRandomCounter() {
