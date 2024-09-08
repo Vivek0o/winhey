@@ -70,4 +70,9 @@
     <string name="withdraw_request">Withdraw Request</string>
     <string name="deposit_request">Deposit Request</string>
     <string name="_0000">0000</string>
+    <string name="winning_information">Winning Information</string>
+    <string name="live_game_play_and_earn">Live Game (Play and Earn)</string>
+    <string name="coming_soon">Coming soon ..</string>
+    <string name="top_performer">Top Performer</string>
+    <string name="today_s_ranking_income">Today\'s Ranking Income</string>
 </resources>

@@ -9,9 +9,9 @@ import java.io.FileOutputStream
 
 class AvatarRepository(private val apiService: AvatarApiService, val context: Context) {
 
-    suspend fun fetchRandomAvatar(): Result<String> {
+    suspend fun fetchRandomAvatar(randomIds: Int): Result<String> {
         return try {
-            val randomId = (1..1000).random().toString()
+            val randomId = randomIds.toString()
             val response = apiService.getAvatar(randomId)
             if (response.isSuccessful) {
                 val file = saveImageLocally(response.body()!!, randomId)

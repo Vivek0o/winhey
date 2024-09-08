@@ -15,7 +15,7 @@ class AvatarViewModel(private val repository: AvatarRepository) : ViewModel() {
     private val _avatar = MutableLiveData<Resource<String>>()
     val avatar: LiveData<Resource<String>> get() = _avatar
 
-    fun fetchAvatar() {
+    fun fetchAvatar(randomId: Int) {
         viewModelScope.launch {
             _avatar.value = Resource.Loading()
 
@@ -27,7 +27,27 @@ class AvatarViewModel(private val repository: AvatarRepository) : ViewModel() {
             }
 
             // Fetch new avatar from the network
-            val result = repository.fetchRandomAvatar()
+            val result = repository.fetchRandomAvatar(randomId)
+            _avatar.value = if (result.isSuccess) {
+                val path = result.getOrNull()
+                if (path != null) {
+                    Resource.Success(path)
+                } else {
+                    Resource.Failure("Avatar path is null")
+                }
+            } else {
+                Resource.Failure(result.exceptionOrNull()?.message ?: "Unknown error")
+            }
+        }
+    }
+
+
+    fun fetchAvatarForPerformer(randomId: Int) {
+        viewModelScope.launch {
+            _avatar.value = Resource.Loading()
+
+            // Fetch new avatar from the network
+            val result = repository.fetchRandomAvatar(randomId)
             _avatar.value = if (result.isSuccess) {
                 val path = result.getOrNull()
                 if (path != null) {

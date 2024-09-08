@@ -65,6 +65,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun handleAvatar() {
+        val randomId = (1..1000).random()
         viewModel.avatar.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {
@@ -74,6 +75,7 @@ class ProfileFragment : Fragment() {
                     val imagePath = resource.data
                     Glide.with(this)
                         .load(imagePath)
+                        .circleCrop()
                         .into(binding.profileImage)
                 }
 
@@ -82,7 +84,7 @@ class ProfileFragment : Fragment() {
                 }
             }
         }
-        viewModel.fetchAvatar()    }
+        viewModel.fetchAvatar(randomId)    }
 
     private fun handleButtonClick() {
         binding.paymentGateway.setOnClickListener {
