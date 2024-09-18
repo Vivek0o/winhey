@@ -18,4 +18,10 @@
         android:icon="@drawable/ic_profile"
         android:iconTint="@color/Black"
         android:title="@string/profile"/>
+
+    <item
+        android:id="@+id/upcomingGameFragment"
+        android:icon="@drawable/ic_game"
+        android:iconTint="@color/Black"
+        android:title="@string/game"/>
 </menu>

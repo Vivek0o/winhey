@@ -93,6 +93,7 @@
                     android:layout_width="150dp"
                     android:layout_height="240dp"
                     android:layout_margin="16dp"
+                    app:strokeColor="@android:color/transparent"
                     app:cardBackgroundColor="#00000000"
                     app:cardCornerRadius="8dp">
 
@@ -123,6 +124,7 @@
                     android:layout_width="150dp"
                     android:layout_height="240dp"
                     android:layout_margin="16dp"
+                    app:strokeColor="@android:color/transparent"
                     app:cardBackgroundColor="#00000000"
                     app:cardCornerRadius="8dp">
 

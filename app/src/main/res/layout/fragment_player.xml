@@ -76,9 +76,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="80sp"
                 android:layout_margin="10dp"
+                app:strokeColor="@android:color/transparent"
                 app:layout_constraintTop_toBottomOf="@id/live_game"
                 card_view:cardCornerRadius="4dp"
-                card_view:cardElevation="20dp"></com.google.android.material.card.MaterialCardView>
+                card_view:cardElevation="20dp">
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/coming_soon_game"
@@ -99,6 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="80sp"
                 android:layout_margin="10dp"
+                app:strokeColor="@android:color/transparent"
                 app:layout_constraintTop_toBottomOf="@id/coming_soon_game"
                 card_view:cardCornerRadius="4dp"></com.google.android.material.card.MaterialCardView>
 

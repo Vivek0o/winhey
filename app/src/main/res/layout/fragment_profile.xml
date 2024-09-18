@@ -96,6 +96,7 @@
                 android:layout_margin="8dp"
                 android:backgroundTint="@color/baseColor80"
                 app:cardCornerRadius="8dp"
+                app:strokeColor="@android:color/transparent"
                 app:cardElevation="0dp">
 
                 <LinearLayout

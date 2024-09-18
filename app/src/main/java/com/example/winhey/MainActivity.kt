@@ -2,6 +2,7 @@ package com.example.winhey
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -15,6 +16,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.winhey.data.models.UserType
 import com.example.winhey.utils.WinHeyUtil
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.MaterialShapeDrawable
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +29,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         window.statusBarColor = ContextCompat.getColor(this, R.color.AppBarColor)
+        val bottomNavigationViewation : BottomNavigationView = findViewById(R.id.bottomNavigation)
+//        val radius = resources.getDimension()
+
+        val shapeDrawable : MaterialShapeDrawable = bottomNavigationViewation.background as MaterialShapeDrawable
+        shapeDrawable.shapeAppearanceModel = shapeDrawable.shapeAppearanceModel
+            .toBuilder()
+            .setTopLeftCorner(CornerFamily.ROUNDED, 100f)
+            .setTopRightCorner(CornerFamily.ROUNDED,100f)
+            .build()
         bottomNavigation()
     }
 
@@ -39,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         navView.itemTextColor = ColorStateList.valueOf(resources.getColor(R.color.Black))
         navController.addOnDestinationChangedListener { _: NavController?, destination: NavDestination, _: Bundle? ->
             if (destination.id == R.id.playerFragment || destination.id == R.id.referralFragment || destination.id == R.id.profileFragment
-            ) {
+                || destination.id == R.id.upcomingGameFragment) {
                 navView.visibility = View.VISIBLE
             } else {
                 navView.visibility = View.GONE

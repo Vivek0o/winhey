@@ -6,6 +6,18 @@
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorControlNormal">@color/colorControlNormal</item>
+<!--        <item name="colorOnPrimarySurface">@color/colorLoss</item>-->
+        <item name="colorSecondary">@color/baseColor</item>
+        <item name="colorSecondaryContainer">@color/colorWon</item>
+<!--        <item name="colorSecondaryFixed">#7B00F6</item>-->
+<!--        <item name="colorSecondaryFixedDim">#770000</item>-->
+<!--        <item name="colorSecondaryVariant">#74F800</item>-->
+<!--        <item name="colorOnSecondary">#FFBF00</item>-->
+<!--        <item name="colorOnSecondaryContainer">#A60142</item>-->
+<!--        <item name="colorOnSecondaryFixed">#502800</item>-->
+
+
+
 
     </style>
 
