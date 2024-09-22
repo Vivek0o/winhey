@@ -11,56 +11,81 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_color_predication_game">
+            android:background="@color/baseColor60">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/game_total_won"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/baseColor60"
-                android:text="@string/_0_0"
-                android:textColor="@color/Black"
-                app:cornerRadius="5dp"
-                app:icon="@drawable/ic_win"
-                app:iconGravity="textStart"
-                app:iconTintMode="multiply"
-                app:iconTint="@null"
-                app:iconSize="25sp"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/game_timer"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:elevation="8dp"
+                app:cardBackgroundColor="@null"
+                app:cardCornerRadius="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/gameName"
+                app:strokeColor="@android:color/transparent">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/game_total_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/baseColor60"
-                android:text="@string/_0_0"
-                android:textColor="@color/Black"
-                app:cornerRadius="5dp"
-                app:icon="@drawable/ic_wallet_color"
-                app:iconGravity="textStart"
-                app:iconTint="@null"
-                app:iconTintMode="multiply"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/one_minute_timer" />
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/go_image" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="25dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/game_name_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/left_time_to_buy"
+                        android:padding="5dp"
+                        android:textColor="@color/Black"
+                        android:textSize="14sp"
+                        android:textStyle="italic |bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_00_00"
+                        android:padding="5dp"
+                        android:textColor="@color/Black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
 
             <TextView
                 android:id="@+id/gameName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
+                android:fontFamily="@font/playwritevn_variablefont_wght"
                 android:text="@string/flip_flop_solitarie"
+                android:textColor="@color/Black"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/White"
-                android:fontFamily="@font/playwritevn_variablefont_wght"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.1" />
+                app:layout_constraintVertical_bias="0.04" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/back_btn"
@@ -70,13 +95,12 @@
                 app:icon="@drawable/ic_back_full_arrow"
                 app:iconGravity="textStart"
                 app:iconTint="@color/Black"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.09"
-                />
+                app:layout_constraintVertical_bias="0.03" />
 
             <LinearLayout
                 android:id="@+id/cardView"
@@ -85,7 +109,7 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gameName"
+                app:layout_constraintTop_toBottomOf="@+id/game_timer"
                 app:layout_constraintVertical_bias="0.40">
 
                 <com.google.android.material.card.MaterialCardView
@@ -93,9 +117,9 @@
                     android:layout_width="150dp"
                     android:layout_height="240dp"
                     android:layout_margin="16dp"
-                    app:strokeColor="@android:color/black"
                     app:cardBackgroundColor="#00000000"
-                    app:cardCornerRadius="8dp">
+                    app:cardCornerRadius="8dp"
+                    app:strokeColor="@android:color/black">
 
                     <ImageView
                         android:id="@+id/imageView1"
@@ -103,18 +127,19 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:background="@drawable/background_removebg_preview" />
+
                     <TextView
                         android:id="@+id/participant1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="bottom |start"
+                        android:layout_marginStart="5sp"
                         android:layout_weight="1"
+                        android:fontFamily="@font/playwritevn_variablefont_wght"
                         android:gravity="center"
                         android:maxLines="2"
-                        android:fontFamily="@font/playwritevn_variablefont_wght"
-                        android:textColor="@color/White"
                         android:text="@string/_0000"
-                        android:layout_marginStart="5sp"
-                        android:layout_gravity="bottom |start"
+                        android:textColor="@color/White"
                         android:textSize="10sp" />
 
                 </com.google.android.material.card.MaterialCardView>
@@ -124,9 +149,9 @@
                     android:layout_width="150dp"
                     android:layout_height="240dp"
                     android:layout_margin="16dp"
-                    app:strokeColor="@android:color/black"
                     app:cardBackgroundColor="#00000000"
-                    app:cardCornerRadius="8dp">
+                    app:cardCornerRadius="8dp"
+                    app:strokeColor="@android:color/black">
 
                     <ImageView
                         android:id="@+id/imageView2"
@@ -139,13 +164,13 @@
                         android:id="@+id/participant2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:textColor="@color/White"
-                        android:text="@string/_0000"
-                        android:layout_marginStart="5sp"
                         android:layout_gravity="bottom |start"
+                        android:layout_marginStart="5sp"
+                        android:layout_weight="1"
                         android:fontFamily="@font/playwritevn_variablefont_wght"
+                        android:gravity="center"
+                        android:text="@string/_0000"
+                        android:textColor="@color/White"
                         android:textSize="10sp" />
 
                 </com.google.android.material.card.MaterialCardView>
@@ -156,8 +181,8 @@
                 android:id="@+id/cardName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="-50dp"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardView">
 
@@ -165,20 +190,20 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:fontFamily="@font/playwritevn_variablefont_wght"
-                    android:textColor="@color/White"
+                    android:gravity="center"
                     android:text="@string/virat"
+                    android:textColor="@color/White"
                     android:textSize="30sp" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@color/White"
-                    android:text="@string/dhoni"
                     android:fontFamily="@font/playwritevn_variablefont_wght"
+                    android:gravity="center"
+                    android:text="@string/dhoni"
+                    android:textColor="@color/White"
                     android:textSize="30sp" />
 
             </LinearLayout>
@@ -188,8 +213,8 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:background="@drawable/background_winner"
-                android:textSize="40sp"
                 android:textColor="@color/White"
+                android:textSize="40sp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/cardName"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -201,10 +226,10 @@
                 android:id="@+id/result_lost"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:textSize="30sp"
                 android:background="@drawable/better_luck_next_time"
-                android:visibility="gone"
                 android:textColor="@color/White"
+                android:textSize="30sp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/cardName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -215,10 +240,10 @@
                 android:id="@+id/playButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:backgroundTint="@color/AppBarColor"
                 android:text="@string/join"
                 android:textColor="@color/Black"
-                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardName" />
@@ -230,18 +255,17 @@
                 android:layout_margin="18sp"
                 android:background="@color/Black"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/playButton"
-                />
+                app:layout_constraintTop_toBottomOf="@id/playButton" />
 
             <include
                 android:id="@+id/game_history_list"
                 layout="@layout/game_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
                 android:layout_marginBottom="18sp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/line_view" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

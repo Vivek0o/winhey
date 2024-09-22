@@ -125,5 +125,12 @@
         android:id="@+id/upcomingGameFragment"
         android:name="com.example.winhey.ui.view.fragment.UpcomingGameFragment"
         android:label="UpcomingGameFragment">
+        <action
+            android:id="@+id/action_upcomingGameFragment_to_upcomingGameFragmentFlip"
+            app:destination="@id/upcomingGameFragmentFlip" />
     </fragment>
+    <fragment
+        android:id="@+id/upcomingGameFragmentFlip"
+        android:name="com.example.winhey.ui.view.upcoming.UpcomingGameFragmentFlip"
+        android:label="UpcomingGameFragmentFlip" />
 </navigation>
