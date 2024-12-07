@@ -224,7 +224,7 @@
             app:iconTint="@color/Black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/deletAccount" />
+            app:layout_constraintTop_toBottomOf="@+id/deleteAccount" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/errorView"
