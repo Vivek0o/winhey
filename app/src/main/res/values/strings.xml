@@ -101,4 +101,5 @@
     <string name="_1">1</string>
     <string name="_00_00">00:00</string>
     <string name="left_time_to_buy">Left time to Buy</string>
+    <string name="delete_account">Delete Account</string>
 </resources>

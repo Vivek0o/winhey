@@ -28,13 +28,13 @@ class UpcomingGameFragment : Fragment() {
     }
 
     private fun handleCardClick() {
-        binding.upcomingGameCard1Mint.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_upcomingGameFragment_to_upcomingGameFragmentFlip,
-                null,
-                NavOptions.Builder().setPopUpTo(R.id.upcomingGameFragment, true).build()
-            )
-        }
+//        binding.upcomingGameCard1Mint.setOnClickListener {
+//            findNavController().navigate(
+//                R.id.action_upcomingGameFragment_to_upcomingGameFragmentFlip,
+//                null,
+//                NavOptions.Builder().setPopUpTo(R.id.upcomingGameFragment, true).build()
+//            )
+//        }
 
         binding.upcomingGameCard2Mint.setOnClickListener {
             Toast.makeText(context, "Hello2", Toast.LENGTH_SHORT).show()

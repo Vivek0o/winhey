@@ -57,24 +57,24 @@ class MoneyFragmentPlayer : Fragment() {
             playerViewModel = ViewModelProvider(this, factory)[PlayerViewModel::class.java]
         }
 
-        mainViewModel.common.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Success -> {
-                    val uri = Uri.parse(it.data.qRImage)
-                    Glide.with(this)
-                        .load(uri)
-                        .into(binding.qrCode)
-                }
-
-                is Resource.Loading -> {
-                    showToast("Loading... ")
-                }
-
-                is Resource.Failure -> {
-                    showToast("Could not load qr code: ${it.message}")
-                }
-            }
-        }
+//        mainViewModel.common.observe(viewLifecycleOwner) {
+//            when (it) {
+//                is Resource.Success -> {
+//                    val uri = Uri.parse(it.data.qRImage)
+//                    Glide.with(this)
+//                        .load(uri)
+//                        .into(binding.qrCode)
+//                }
+//
+//                is Resource.Loading -> {
+//                    showToast("Loading... ")
+//                }
+//
+//                is Resource.Failure -> {
+//                    showToast("Could not load qr code: ${it.message}")
+//                }
+//            }
+//        }
 
         playerViewModel.currentPlayer.observe(viewLifecycleOwner) {
             when (it) {
@@ -120,7 +120,7 @@ class MoneyFragmentPlayer : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun handleButtonClick() {
         binding.addMoney.setOnClickListener {
-            binding.withdrawMoneyLayout.visibility = View.GONE
+            binding.upcomingWithdrawMoneyLayout.visibility = View.GONE
             binding.addMoneyLayout.visibility = View.VISIBLE
         }
         binding.addTransaction.setOnClickListener {
@@ -129,7 +129,7 @@ class MoneyFragmentPlayer : Fragment() {
 
         binding.withdrawMoney.setOnClickListener {
             binding.addMoneyLayout.visibility = View.GONE
-            binding.withdrawMoneyLayout.visibility = View.VISIBLE
+            binding.upcomingWithdrawMoneyLayout.visibility = View.VISIBLE
         }
 
         binding.containerWithdraw.withdrawButton.setOnClickListener {

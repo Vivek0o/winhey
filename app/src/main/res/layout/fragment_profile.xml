@@ -187,6 +187,26 @@
             app:layout_constraintTop_toBottomOf="@+id/payment_gateway" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/deleteAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="-5sp"
+            android:layout_marginEnd="15sp"
+            android:backgroundTint="@color/baseColor"
+            android:gravity="center_vertical"
+            android:text="@string/delete_account"
+            android:textColor="@android:color/black"
+            app:cornerRadius="5dp"
+            app:icon="@drawable/icon_delete"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconTint="@color/Black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/referral_gateway" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -204,7 +224,7 @@
             app:iconTint="@color/Black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/referral_gateway" />
+            app:layout_constraintTop_toBottomOf="@+id/deletAccount" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/errorView"
