@@ -58,7 +58,7 @@ class AuthFragment : Fragment() {
                         when {
                             it.isLoggedIn && it.userType == UserType.ADMIN -> {
                                 findNavController().navigate(
-                                    R.id.action_authFragment_to_adminFragment,
+                                    R.id.action_authFragment_to_playerFragment,
                                     null,
                                     NavOptions.Builder().setPopUpTo(R.id.authFragment, true).build()
                                 )
