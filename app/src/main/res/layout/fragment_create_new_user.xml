@@ -8,6 +8,27 @@
         android:layout_height="match_parent"
         android:background="@color/baseColor60">
 
+        <ImageView
+            android:id="@+id/backNavigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_arrow_back"
+            android:layout_margin="10sp"
+            android:contentDescription="@string/back_button" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50sp"
+            android:background="@drawable/app_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/logo" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/newUserInputEmail"
             style="@style/OutlinedBoxStyle"
@@ -18,7 +39,7 @@
             android:textColorHint="@color/Black"
             app:hintTextColor="@color/Black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo"
             app:startIconDrawable="@drawable/ic_email"
             app:startIconTint="@color/Black">
 
@@ -78,32 +99,32 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/newUserInputInitialAmount"
-            style="@style/OutlinedBoxStyle"
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/newUserInputInitialAmount"-->
+<!--            style="@style/OutlinedBoxStyle"-->
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="@string/initial_amount"
-            android:textColorHint="@color/Black"
-            app:hintTextColor="@color/Black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newUserInputUserName"
-            app:startIconDrawable="@drawable/ic_secure"
-            app:startIconTint="@color/Black">
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="20dp"-->
+<!--            android:hint="@string/initial_amount"-->
+<!--            android:textColorHint="@color/Black"-->
+<!--            app:hintTextColor="@color/Black"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/newUserInputUserName"-->
+<!--            app:startIconDrawable="@drawable/ic_secure"-->
+<!--            app:startIconTint="@color/Black">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextUserInitialAmount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:paddingStart="48dp"
-                android:text="@string/_0_0"
-                android:textColor="@color/Black" />
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/editTextUserInitialAmount"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:inputType="number"-->
+<!--                android:paddingStart="48dp"-->
+<!--                android:text="@string/_0_0"-->
+<!--                android:textColor="@color/Black" />-->
 
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNewUser"
@@ -115,7 +136,7 @@
             android:textColor="@color/Black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/newUserInputInitialAmount" />
+            app:layout_constraintTop_toBottomOf="@id/newUserInputUserName" />
 
         <ProgressBar
             android:id="@+id/loadingIndicator"

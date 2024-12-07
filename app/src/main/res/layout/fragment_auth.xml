@@ -7,10 +7,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/baseColor60">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/authScreen"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:visibility="gone"
             tools:visibility="visible"
             tools:context=".ui.view.fragment.AuthFragment">
@@ -85,7 +86,26 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayoutName" />
+
+            <TextView
+                android:id="@+id/createNewAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_new_account"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="30sp"
+                android:textColor="@color/Black"
+                app:layout_constraintTop_toBottomOf="@+id/submitButton"/>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/containerCreateNewUser"
+            layout="@layout/fragment_create_new_user"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
         <ProgressBar
             android:id="@+id/loadingIndicator"

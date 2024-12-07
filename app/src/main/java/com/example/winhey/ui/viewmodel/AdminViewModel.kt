@@ -46,7 +46,6 @@ class AdminViewModel(application: Application) : BaseViewModel(application) {
         name: String = "",
         initialAmount: Double = 0.0
     ) {
-
         checkInternetAndPerformAction(
             action = {
                 FirebaseHelper.signUp(

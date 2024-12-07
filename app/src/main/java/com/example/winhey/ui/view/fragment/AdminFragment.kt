@@ -86,6 +86,8 @@ class AdminFragment : Fragment() {
                     is Resource.Loading -> {
                         binding.loadingIndicator.visibility = View.VISIBLE
                     }
+
+                    else -> {}
                 }
             }
         }
@@ -109,17 +111,17 @@ class AdminFragment : Fragment() {
             val email = binding.containerCreateNewUser.editTextEmail.text.toString()
             val password = binding.containerCreateNewUser.editTextPassword.text.toString()
             val userName = binding.containerCreateNewUser.editTextUserName.text.toString()
-            val initalAmount =
-                binding.containerCreateNewUser.editTextUserInitialAmount.text.toString()
+//            val initalAmount =
+//                binding.containerCreateNewUser.editTextUserInitialAmount.text.toString()
 
-            if (email.isNotEmpty() && password.isNotEmpty() && initalAmount.isNotBlank()) {
-                if (initalAmount.toDouble() >= 0.0) {
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                //if (initalAmount.toDouble() >= 0.0) {
                     binding.containerCreateNewUser.loadingIndicator.visibility = View.VISIBLE
                     adminViewModel.createPlayer(
                         email = email,
                         password = password,
                         name = userName,
-                        initialAmount = initalAmount.toDouble()
+                        initialAmount = 2000.00
                     )
 
                     adminViewModel.players.observe(viewLifecycleOwner) {
@@ -150,8 +152,9 @@ class AdminFragment : Fragment() {
                                 ).show()
                                 binding.containerCreateNewUser.newUserForm.visibility = View.GONE
                             }
+
+                            else -> {}
                         }
-                    }
                 }
             } else {
                 Toast.makeText(
