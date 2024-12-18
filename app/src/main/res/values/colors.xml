@@ -17,7 +17,8 @@
     <color name="colorButtonTextColorNight">#010003</color>
 
     <color name="White">#F4F2F6</color>
-    <color name="Black">#010003</color>
+    <color name="Black">#0F0E10</color>
+    <color name="lightBlack">#1C1B1E</color>
     <color name="LightWhite">#80F4F2F6</color>
     <color name="AppBarColor">#379F7C</color>
     <color name="baseColor">#94d2bd</color>

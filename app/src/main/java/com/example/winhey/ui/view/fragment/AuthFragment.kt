@@ -84,7 +84,7 @@ class AuthFragment : Fragment() {
             binding.authScreen.visibility = View.VISIBLE
         }
 
-        binding.createNewAccount.setOnClickListener {
+        binding.signUp.setOnClickListener {
             binding.authScreen.visibility = View.GONE
             binding.containerCreateNewUser.newUserForm.visibility = View.VISIBLE
 
@@ -107,7 +107,7 @@ class AuthFragment : Fragment() {
                         initialAmount = 2000.0
                     )
 
-                    adminViewModel.players.observe(viewLifecycleOwner) {
+                    authViewModel.authState.observe(viewLifecycleOwner) {
                         when (it) {
                             is Resource.Loading -> {
                                 binding.containerCreateNewUser.loadingIndicator.visibility =
@@ -134,6 +134,8 @@ class AuthFragment : Fragment() {
                                     Toast.LENGTH_LONG
                                 ).show()
                                 binding.containerCreateNewUser.newUserForm.visibility = View.GONE
+                                binding.authScreen.visibility = View.VISIBLE
+
                             }
 
                             else -> {}
