@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.winhey"
+    namespace = "com.avfusionapps.winhey"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.winhey"
+        applicationId = "com.avfusionapps.winhey"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

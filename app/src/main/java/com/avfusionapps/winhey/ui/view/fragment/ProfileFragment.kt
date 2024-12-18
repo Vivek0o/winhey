@@ -1,0 +1,218 @@
+package com.avfusionapps.winhey.ui.view.fragment
+
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.avfusionapps.winhey.R
+import com.avfusionapps.winhey.data.models.Constants
+import com.avfusionapps.winhey.data.models.Resource
+import com.avfusionapps.winhey.data.models.Status
+import com.avfusionapps.winhey.data.models.UserType
+import com.avfusionapps.winhey.data.remote.api.AvatarApiService
+import com.avfusionapps.winhey.data.repository.AvatarRepository
+import com.avfusionapps.winhey.databinding.FragmentProfileBinding
+import com.avfusionapps.winhey.ui.PlayerViewModelFactory
+import com.avfusionapps.winhey.ui.viewmodel.AuthViewModel
+import com.avfusionapps.winhey.ui.viewmodel.AvatarViewModel
+import com.avfusionapps.winhey.ui.viewmodel.AvatarViewModelFactory
+import com.avfusionapps.winhey.ui.viewmodel.PlayerViewModel
+import com.avfusionapps.winhey.utils.WinHeyUtil
+
+class ProfileFragment : Fragment() {
+    private lateinit var binding: FragmentProfileBinding
+    private val authViewModel: AuthViewModel by activityViewModels()
+    private lateinit var playerViewModel: PlayerViewModel
+    private lateinit var viewModel: AvatarViewModel
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentProfileBinding.inflate(inflater)
+
+        authViewModel.currentUser.value?.uid?.let {
+            val factory = PlayerViewModelFactory(application = requireActivity().application, it)
+            playerViewModel = ViewModelProvider(this, factory)[PlayerViewModel::class.java]
+        }
+
+        val apiService = AvatarApiService.create()
+        val repository = AvatarRepository(apiService, requireContext())
+
+        val factory = AvatarViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, factory).get(AvatarViewModel::class.java)
+
+        handleAvatar()
+        handleButtonClick()
+        handleProfileData()
+
+        return binding.root
+    }
+
+    private fun handleAvatar() {
+        viewModel.userProfile.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                    // Show loading indicator
+                }
+                is Resource.Success -> {
+                    val imagePath = resource.data
+                    Glide.with(this)
+                        .load(imagePath)
+                        .circleCrop()
+                        .into(binding.profileImage)
+                }
+
+                is Resource.Failure -> {
+                    Toast.makeText(context, resource.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun handleButtonClick() {
+        binding.paymentGateway.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_profileFragment_to_moneyFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build()
+            )
+        }
+
+        binding.referralGateway.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_profileFragment_to_referralFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build()
+            )
+        }
+
+        binding.deleteAccount.setOnClickListener {
+            showConfirmationDialog()
+        }
+
+        binding.profileToolbar.setNavigationOnClickListener {
+            findNavController().navigate(
+                R.id.action_profileFragment_to_playerFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build()
+            )
+        }
+    }
+
+    private fun showConfirmationDialog() {
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle("Confirmation")
+            builder.setMessage("Are you sure you want to permanently" +
+                    " delete your account? This action cannot be undone." +
+                    " You will no longer be able to login.")
+
+            builder.setPositiveButton("Delete") { _, _ ->
+                openGoogleForm()
+                logout()
+            }
+            builder.setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            builder.create().show()
+    }
+
+    private fun openGoogleForm() {
+        val formUrl = "https://forms.gle/aXvHBqMdf8CNipaN9"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(formUrl))
+        startActivity(intent)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun handleProfileData() {
+        playerViewModel.fetchCurrentPlayer()
+
+        playerViewModel.currentPlayer.observe(viewLifecycleOwner) {
+            when(it) {
+                is Resource.Success -> {
+                    if (it.data.isBlocked) {
+                        findNavController().navigate(R.id.blockedFragment)
+                    }
+                    setupVisibility(Status.SUCCESS)
+                    binding.userName.text = it.data.name
+                    binding.profileEmail.text = it.data.email
+                    binding.walletText.text = "Wallet: ${it.data.accountBalance}"
+                    binding.totalWon.text = "Total won: ${it.data.totalWon}"
+                    binding.totalLost.text = "Total lost: ${it.data.totalLost}"
+                }
+
+                is Resource.Loading -> {
+                    setupVisibility(Status.LOADING)
+                }
+
+                is Resource.Failure -> {
+                    setupVisibility(Status.ERROR, it.message)
+                }
+            }
+        }
+
+        binding.logout.setOnClickListener {
+            logout()
+        }
+    }
+
+    private fun logout() {
+        binding.loadingIndicator.visibility = View.VISIBLE
+        authViewModel.logout()
+        authViewModel.authState.observe(viewLifecycleOwner) {
+            when(it) {
+                is Resource.Success -> {
+                    if (!it.data.isLoggedIn && it.data.userType == UserType.NONE) {
+                        findNavController().navigate(
+                            R.id.action_profileFragment_to_authFragment,
+                            null,
+                            NavOptions.Builder().setPopUpTo(R.id.profileFragment, true).build()
+                        )
+                    }
+                }
+
+                is Resource.Failure -> {
+                    binding.loadingIndicator.visibility = View.GONE
+                    if (it.message == Constants.NO_INTERNET_ERROR) {
+                        WinHeyUtil.showNoInternetDialog(requireContext())
+                    }
+                }
+                is Resource.Loading -> {
+                    binding.loadingIndicator.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
+    private fun setupVisibility(status: Status, message: String = "") {
+        when(status) {
+            Status.SUCCESS -> {
+                binding.loadingIndicator.visibility = View.GONE
+                binding.errorView.visibility = View.GONE
+            }
+            Status.LOADING -> {
+                binding.loadingIndicator.visibility = View.VISIBLE
+                binding.errorView.visibility = View.GONE
+            }
+            Status.ERROR -> {
+                binding.loadingIndicator.visibility = View.GONE
+                binding.errorView.visibility = View.VISIBLE
+                binding.errorView.text = message
+                if (message == Constants.NO_INTERNET_ERROR) {
+                    WinHeyUtil.showNoInternetDialog(requireContext())
+                }
+            }
+        }
+    }
+}

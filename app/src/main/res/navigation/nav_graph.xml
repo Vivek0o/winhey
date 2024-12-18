@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/adminFragment"
-        android:name="com.example.winhey.ui.view.fragment.AdminFragment"
+        android:name="com.avfusionapps.winhey.ui.view.fragment.AdminFragment"
         android:label="AdminFragment" >
         <action
             android:id="@+id/action_adminFragment_to_authFragment"
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/playerFragment"
-        android:name="com.example.winhey.ui.view.fragment.PlayerFragment"
+        android:name="com.avfusionapps.winhey.ui.view.fragment.PlayerFragment"
         android:label="fragment_player"
         tools:layout="@layout/fragment_player" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.example.winhey.ui.view.fragment.AuthFragment"
+        android:name="com.avfusionapps.winhey.ui.view.fragment.AuthFragment"
         android:label="AuthFragment" >
         <action
             android:id="@+id/action_authFragment_to_adminFragment"
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
-        android:name="com.example.winhey.ui.view.fragment.GameFragment"
+        android:name="com.avfusionapps.winhey.ui.view.fragment.GameFragment"
         android:label="GameFragment" >
         <action
             android:id="@+id/action_gameFragment_to_playerFragment"
@@ -63,7 +63,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.winhey.ui.view.fragment.ProfileFragment"
+        android:name="com.avfusionapps.winhey.ui.view.fragment.ProfileFragment"
         android:label="ProfileFragment" >
         <action
             android:id="@+id/action_profileFragment_to_authFragment"
@@ -84,7 +84,7 @@
 
     <fragment
         android:id="@+id/referralFragment"
-        android:name="com.example.winhey.ui.view.fragment.ReferralFragment"
+        android:name="com.avfusionapps.winhey.ui.view.fragment.ReferralFragment"
         android:label="ReferralFragment" >
         <action
             android:id="@+id/action_referralFragment_to_playerFragment"
@@ -93,7 +93,7 @@
 
     <fragment
         android:id="@+id/transactionFragment"
-        android:name="com.example.winhey.ui.view.fragment.TransactionFragment"
+        android:name="com.avfusionapps.winhey.ui.view.fragment.TransactionFragment"
         android:label="TransactionFragment" >
         <action
             android:id="@+id/action_transactionFragment_to_adminFragment"
@@ -101,7 +101,7 @@
     </fragment>
     <fragment
         android:id="@+id/blockedFragment"
-        android:name="com.example.winhey.ui.view.fragment.BlockedFragment"
+        android:name="com.avfusionapps.winhey.ui.view.fragment.BlockedFragment"
         android:label="fragment_blocked"
         tools:layout="@layout/fragment_blocked" >
         <action
@@ -112,7 +112,7 @@
     </fragment>
     <fragment
         android:id="@+id/moneyFragment"
-        android:name="com.example.winhey.ui.view.fragment.MoneyFragmentPlayer"
+        android:name="com.avfusionapps.winhey.ui.view.fragment.MoneyFragmentPlayer"
         android:label="MoneyFragment" >
         <action
             android:id="@+id/action_moneyFragment_to_playerFragment"
@@ -131,6 +131,6 @@
 <!--    </fragment>-->
     <fragment
         android:id="@+id/upcomingGameFragmentFlip"
-        android:name="com.example.winhey.ui.view.upcoming.UpcomingGameFragmentFlip"
+        android:name="com.avfusionapps.winhey.ui.view.upcoming.UpcomingGameFragmentFlip"
         android:label="UpcomingGameFragmentFlip" />
 </navigation>

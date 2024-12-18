@@ -1,0 +1,218 @@
+package com.avfusionapps.winhey.ui.view.fragment
+
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
+import com.avfusionapps.winhey.R
+import com.avfusionapps.winhey.data.models.Constants
+import com.avfusionapps.winhey.data.models.Resource
+import com.avfusionapps.winhey.data.models.Status
+import com.avfusionapps.winhey.data.models.UserType
+import com.avfusionapps.winhey.databinding.FragmentAuthBinding
+import com.avfusionapps.winhey.ui.viewmodel.AdminViewModel
+import com.avfusionapps.winhey.ui.viewmodel.AuthViewModel
+import com.avfusionapps.winhey.utils.WinHeyUtil
+
+class AuthFragment : Fragment() {
+
+    val TAG = AuthFragment::class.java.name
+    private lateinit var binding: FragmentAuthBinding
+    private val authViewModel: AuthViewModel by viewModels({ requireActivity() })
+    private val adminViewModel: AdminViewModel by activityViewModels()
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentAuthBinding.inflate(inflater)
+
+        authViewModel.authState.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Failure -> {
+                    if (resource.message == Constants.NO_INTERNET_ERROR) {
+                        handleVisibility(Status.ERROR, Constants.NO_INTERNET_ERROR)
+                    } else {
+                        handleVisibility(Status.ERROR, resource.message)
+                    }
+
+                    binding.errorView.text = resource.message
+                }
+
+                is Resource.Loading -> {
+                    handleVisibility(Status.LOADING)
+                }
+
+                is Resource.Success -> {
+                    resource.data.let {
+                        when {
+                            it.isLoggedIn && it.userType == UserType.ADMIN -> {
+                                findNavController().navigate(
+                                    R.id.action_authFragment_to_playerFragment,
+                                    null,
+                                    NavOptions.Builder().setPopUpTo(R.id.authFragment, true).build()
+                                )
+                            }
+
+                            it.isLoggedIn && it.userType == UserType.PLAYER -> {
+                                findNavController().navigate(
+                                    R.id.action_authFragment_to_playerFragment,
+                                    null,
+                                    NavOptions.Builder().setPopUpTo(R.id.authFragment, true).build()
+                                )
+                            }
+
+                            else -> handleVisibility(Status.SUCCESS)
+                        }
+                    }
+                }
+            }
+        }
+
+        binding.containerCreateNewUser.backNavigation.setOnClickListener {
+            binding.containerCreateNewUser.newUserForm.visibility = View.GONE
+            binding.authScreen.visibility = View.VISIBLE
+        }
+
+        binding.signUp.setOnClickListener {
+            binding.authScreen.visibility = View.GONE
+            binding.containerCreateNewUser.newUserForm.visibility = View.VISIBLE
+
+//            val initalAmount =
+//                binding.containerCreateNewUser.editTextUserInitialAmount.text.toString()
+
+            binding.containerCreateNewUser.btnNewUser.setOnClickListener {
+                val email = binding.containerCreateNewUser.editTextEmail.text.toString()
+                val password = binding.containerCreateNewUser.editTextPassword.text.toString()
+                val userName = binding.containerCreateNewUser.editTextUserName.text.toString()
+                Log.d("VivekTesting", "onCreateView: $email $password")
+
+                if (email.isNotEmpty() && password.isNotEmpty()) {
+                    // if (initalAmount.toDouble() >= 0.0) {
+                    binding.containerCreateNewUser.loadingIndicator.visibility = View.VISIBLE
+                    adminViewModel.createPlayer(
+                        email = email,
+                        password = password,
+                        name = userName,
+                        initialAmount = 2000.0
+                    )
+
+                    authViewModel.authState.observe(viewLifecycleOwner) {
+                        when (it) {
+                            is Resource.Loading -> {
+                                binding.containerCreateNewUser.loadingIndicator.visibility =
+                                    View.VISIBLE
+                                binding.containerCreateNewUser.errorView.visibility = View.GONE
+                            }
+
+                            is Resource.Failure -> {
+                                binding.containerCreateNewUser.loadingIndicator.visibility =
+                                    View.GONE
+                                binding.containerCreateNewUser.errorView.apply {
+                                    visibility = View.VISIBLE
+                                    text = it.message
+                                }
+                            }
+
+                            is Resource.Success -> {
+                                binding.containerCreateNewUser.loadingIndicator.visibility =
+                                    View.GONE
+                                binding.containerCreateNewUser.errorView.visibility = View.GONE
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Player created successfully...",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                binding.containerCreateNewUser.newUserForm.visibility = View.GONE
+                                binding.authScreen.visibility = View.VISIBLE
+
+                            }
+
+                            else -> {}
+                        }
+                    }
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "email, password or initial amount can not be empty!!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+        }
+
+        binding.submitButton.setOnClickListener {
+            val email = binding.editTextEmail.text
+            val password = binding.editTextPassword.text
+            if (email?.isNotEmpty() == true && password?.isNotEmpty() == true) {
+                handleVisibility(Status.LOADING)
+                authViewModel.login(email.toString(), password.toString())
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "User Name or Password can not be empty",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        var warningToast = true
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (warningToast) {
+                        Toast.makeText(
+                            context,
+                            "Click again to close application",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        warningToast = false
+                    } else {
+                        requireActivity().finish()
+                    }
+                }
+            })
+    }
+
+    private fun handleVisibility(status: Status, err: String = "") {
+        when (status) {
+            Status.LOADING -> {
+                binding.loadingIndicator.visibility = View.VISIBLE
+                binding.authScreen.visibility = View.VISIBLE
+                binding.errorView.visibility = View.GONE
+            }
+
+            Status.ERROR -> {
+                if (err == Constants.NO_INTERNET_ERROR) {
+                    WinHeyUtil.showNoInternetDialog(requireContext())
+                }
+                binding.loadingIndicator.visibility = View.GONE
+                binding.authScreen.visibility = View.VISIBLE
+                binding.errorView.visibility = View.VISIBLE
+                binding.errorView.text = err
+            }
+
+            Status.SUCCESS -> {
+                binding.loadingIndicator.visibility = View.GONE
+                binding.authScreen.visibility = View.VISIBLE
+                binding.errorView.visibility = View.GONE
+            }
+        }
+    }
+}
