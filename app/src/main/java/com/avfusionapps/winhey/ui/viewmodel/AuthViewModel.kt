@@ -19,6 +19,9 @@ class AuthViewModel(application: Application) : BaseViewModel(application) {
     private val _authState = MutableLiveData<Resource<AuthState>>(Resource.Loading(AuthState()))
     val authState: LiveData<Resource<AuthState>> get() = _authState
 
+    private val _resetPassword = MutableLiveData<Resource<Boolean>>()
+    val resetPassword: LiveData<Resource<Boolean>> get() = _resetPassword
+
     init {
         initializeAuthState()
     }
@@ -79,6 +82,28 @@ class AuthViewModel(application: Application) : BaseViewModel(application) {
                     Constants.NO_INTERNET_ERROR,
                     AuthState(true, determineUserType(_currentUser.value?.email))
                 )
+            }
+        )
+    }
+
+    fun sendPasswordResetEmail(email: String) {
+        checkInternetAndPerformAction(
+            action = {
+                // Show loading state
+                _resetPassword.value = Resource.Loading()
+
+                FirebaseHelper.resetPassword(object : FirebaseHelper.FirebaseCallback<Boolean>{
+                    override fun onFailure(error: String) {
+                        _resetPassword.value = Resource.Failure(error)
+                    }
+
+                    override fun onSuccess(result: Boolean) {
+                        _resetPassword.value = Resource.Success(result)
+                    }
+                }, email = email,)
+            },
+            failureAction = {
+                _resetPassword.value = Resource.Failure("Unknown error")
             }
         )
     }

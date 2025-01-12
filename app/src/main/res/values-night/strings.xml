@@ -91,4 +91,7 @@
     <string name="logo">logo</string>
     <string name="or">Or</string>
     <string name="signup"><u>SignUp</u></string>
+    <string name="forgot_your_password"><u>Forgot Your Password ?</u></string>
+    <string name="forgot_password">Forgot\nPassword?</string>
+    <string name="send_reset_link">Send Reset Link</string>
 </resources>

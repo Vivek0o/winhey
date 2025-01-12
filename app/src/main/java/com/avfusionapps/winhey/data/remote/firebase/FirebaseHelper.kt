@@ -72,6 +72,15 @@ object FirebaseHelper {
         }
     }
 
+    fun resetPassword(callback: FirebaseCallback<Boolean>, email: String) {
+        try {
+            auth.sendPasswordResetEmail(email)
+            callback.onSuccess(true)
+        } catch (e: Exception) {
+            callback.onFailure(e.message ?: "Unknown error")
+        }
+    }
+
 
     fun fetchAllPlayers(callback: FirebaseCallback<List<Player>>) {
         try {

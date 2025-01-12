@@ -151,6 +151,14 @@ class AuthFragment : Fragment() {
 
         }
 
+        binding.forgotPassword.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_authFragment_to_passwordResetFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.authFragment, true).build()
+            )
+        }
+
         binding.submitButton.setOnClickListener {
             val email = binding.editTextEmail.text
             val password = binding.editTextPassword.text

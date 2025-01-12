@@ -51,6 +51,12 @@
             app:destination="@id/playerFragment"
             app:popUpTo="@id/authFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_authFragment_to_passwordResetFragment"
+            app:destination="@id/passwordResetFragment" />
+        <action
+            android:id="@+id/action_authFragment_to_passwordResetFragment2"
+            app:destination="@id/passwordResetFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
@@ -133,4 +139,12 @@
         android:id="@+id/upcomingGameFragmentFlip"
         android:name="com.avfusionapps.winhey.ui.view.upcoming.UpcomingGameFragmentFlip"
         android:label="UpcomingGameFragmentFlip" />
+    <fragment
+        android:id="@+id/passwordResetFragment"
+        android:name="com.avfusionapps.winhey.ui.view.fragment.PasswordResetFragment"
+        android:label="PasswordResetFragment" >
+        <action
+            android:id="@+id/action_passwordResetFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
 </navigation>
